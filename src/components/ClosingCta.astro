@@ -1,0 +1,24 @@
+---
+import BookButton from './BookButton.astro';
+interface Props { title?: string; lead?: string; href?: string; label?: string }
+const {
+  title = 'Take the first pause.',
+  lead = 'Your first session is free.',
+  href = '/book#free',
+  label = 'Book a free session',
+} = Astro.props;
+---
+<section class="section closing">
+  <div class="container narrow center">
+    <h2 class="reveal">{title}</h2>
+    <p class="lead reveal" style="--d:2">{lead}</p>
+    <div class="btn-row reveal" style="--d:3"><BookButton href={href} label={label} /></div>
+  </div>
+</section>
+
+<style>
+  .closing { padding-block: calc(var(--section) * 1.3); }
+  h2 { font-size: clamp(2.3rem, 7.5vw, 4.2rem); font-weight: 400; }
+  .lead { margin-inline: auto; margin-bottom: 2rem; }
+  .btn-row { justify-content: center; }
+</style>

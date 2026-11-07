@@ -8,8 +8,8 @@ const { title, description } = Astro.props;
 <Base title={title} description={description}>
   <section class="section legal-page">
     <div class="container narrow">
-      <p class="eyebrow">Legal</p>
-      <h1>{title}</h1>
+      <p class="eyebrow reveal">Legal</p>
+      <h1 class="reveal" style="--d:1">{title}</h1>
       <p class="muted">Last updated: <Val v={site.legalUpdated} /></p>
       {site.legalDraft && (
         <p class="note draft" role="note">
@@ -17,7 +17,7 @@ const { title, description } = Astro.props;
           lawyer familiar with India's Digital Personal Data Protection Act, 2023) before launch.
         </p>
       )}
-      <div class="prose"><slot /></div>
+      <div class="prose reveal" style="--d:2"><slot /></div>
     </div>
   </section>
 </Base>

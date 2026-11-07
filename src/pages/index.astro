@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import BookButton from '../components/BookButton.astro';
 import ScrubText from '../components/ScrubText.astro';
 import Breathe from '../components/Breathe.astro';
+import ClosingCta from '../components/ClosingCta.astro';
 import { site } from '../config/site';
 const p = site.psychologist;
 ---
@@ -96,16 +97,7 @@ const p = site.psychologist;
     </div>
   </section>
 
-  <!-- 7. Closing -->
-  <section class="section closing">
-    <div class="container narrow center">
-      <h2 class="big reveal">Take the first pause.</h2>
-      <p class="lead reveal" style="--d:2">Your first session is free.</p>
-      <div class="btn-row reveal" style="--d:3">
-        <BookButton href="/book#free" label="Book a free session" />
-      </div>
-    </div>
-  </section>
+  <ClosingCta />
 </Base>
 
 <style>
@@ -309,19 +301,4 @@ const p = site.psychologist;
     padding-bottom: 2px;
   }
 
-  /* Closing */
-  .closing {
-    padding-block: calc(var(--section) * 1.4);
-  }
-  .big {
-    font-size: clamp(2.4rem, 8vw, 4.6rem);
-    font-weight: 400;
-  }
-  .closing .lead {
-    margin-inline: auto;
-    margin-bottom: 2rem;
-  }
-  .closing .btn-row {
-    justify-content: center;
-  }
 </style>

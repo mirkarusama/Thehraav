@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import PageIntro from '../components/PageIntro.astro';
 import Val from '../components/Val.astro';
 import CancellationPolicy from '../components/CancellationPolicy.astro';
+import ClosingCta from '../components/ClosingCta.astro';
 import { site } from '../config/site';
 const s = site.sessions;
 ---
@@ -10,126 +11,92 @@ const s = site.sessions;
   title="FAQ: online counselling questions answered"
   description="Answers to common questions about online counselling with Thehraav: the first session, confidentiality, how online sessions work, languages, payment, cancellations and emergencies."
 >
-  <PageIntro
-    eyebrow="FAQ"
-    title="Questions you might have."
-    lead="It's natural to have questions before starting counselling. If yours isn't answered here, please get in touch."
-  />
+  <PageIntro eyebrow="FAQ" title="Questions, gently answered." />
 
   <section class="section section--tight">
     <div class="container narrow faq">
-      <details>
+      <details class="reveal">
         <summary>What happens in the first session?</summary>
         <div class="answer">
           <p>
-            The first session is a gentle conversation. You can share what's been going on, what you'd like to change,
-            and ask me anything about how we'd work together. There's no pressure to share more than you're ready to.
-            By the end, we'll both have a sense of whether we're a good fit, and what the next steps could be.
+            We talk about what's been happening and what you'd like to change. You share only what you're ready to.
+            It's free for new clients (<Val v={s.freeFirstLength} />).
           </p>
-          <p>
-            For new clients, it's free and lasts <Val v={s.freeFirstLength} />. After booking, you'll get an email
-            with links to a short consent form and intake form to fill in before we meet.
-          </p>
+          <p>After booking, you'll get an email with a short consent form and intake form to fill in before we meet.</p>
         </div>
       </details>
 
-      <details>
+      <details class="reveal">
         <summary>Is it confidential?</summary>
         <div class="answer">
           <p>
-            Yes. What you share in sessions stays between us. Like all counsellors, I follow professional ethical
-            guidelines, and there are a few legal and safety limits, for example if someone's life is at serious risk.
-            These are explained clearly in the consent form you receive after booking.
-          </p>
-          <p>
-            To learn how booking details and messages are handled, see the <a href="/privacy">privacy policy</a>.
+            Yes. What you share stays between us, within professional ethics and the law, for example if a life is at
+            serious risk. The consent form explains this clearly. See also the <a href="/privacy">privacy policy</a>.
           </p>
         </div>
       </details>
 
-      <details>
+      <details class="reveal">
         <summary>How do online sessions work?</summary>
         <div class="answer">
-          <p>
-            When you book, you'll get a private video call link by email. At the session time, just click the link.
-            There's nothing to install beyond what the link asks for.
-          </p>
+          <p>You'll get a private video link by email. Just click it at your session time.</p>
           <ul>
-            <li><strong>Find a quiet, private space</strong> where you won't be overheard or interrupted.</li>
-            <li><strong>Use headphones</strong> if you can, for extra privacy.</li>
-            <li><strong>Check your internet</strong> and charge your phone or laptop beforehand.</li>
+            <li>A quiet, private space</li>
+            <li>Headphones, if you can</li>
+            <li>A charged device and steady internet</li>
           </ul>
-          <p>If you get disconnected, don't worry. Just rejoin using the same link.</p>
         </div>
       </details>
 
-      <details>
-        <summary>Which languages do you offer?</summary>
+      <details class="reveal">
+        <summary>Which languages?</summary>
         <div class="answer">
-          <p>
-            English and Hindi. Many people switch between the two, and that's completely fine. Speak in whatever
-            feels most natural to you.
-          </p>
+          <p>English and Hindi, or a mix of both, whatever feels natural.</p>
         </div>
       </details>
 
-      <details>
+      <details class="reveal">
         <summary>How does payment work?</summary>
         <div class="answer">
           <p>
-            The first session is free for new clients. For regular sessions (<Val v={s.fee} /> for <Val v={s.length} />),
-            you pay securely through Razorpay when you book, using UPI, card or netbanking. Your booking is confirmed
-            once payment goes through.
+            Your first session is free. After that, sessions are <Val v={s.fee} />, paid securely through Razorpay
+            (UPI, card or netbanking) when you book.
           </p>
         </div>
       </details>
 
-      <details>
-        <summary>What if I need to cancel or reschedule?</summary>
+      <details class="reveal">
+        <summary>Can I cancel or reschedule?</summary>
         <div class="answer">
           <CancellationPolicy />
         </div>
       </details>
 
-      <details>
+      <details class="reveal">
         <summary>Is this right for me?</summary>
         <div class="answer">
           <p>
-            If you're a woman who often feels overwhelmed by anxiety or by anger that's hard to control, and you'd
-            like practical ways to feel calmer and more in control, this could be a good fit. You don't need to have
-            everything figured out, or have tried counselling before.
-          </p>
-          <p>
-            Online counselling isn't the right fit for everything. If you're in crisis or need urgent care, please
-            reach out to emergency services first. If you're unsure, book a free first session or
-            <a href="/contact">send a message</a>, and we can talk it through.
+            If anxiety or anger often feels like too much, and you'd like practical ways to feel steadier, it could be.
+            You don't need to have it all figured out. Not sure? <a href="/contact">Ask me</a>, or book a free first
+            session.
           </p>
         </div>
       </details>
 
-      <details>
-        <summary>What should I do in an emergency?</summary>
+      <details class="reveal">
+        <summary>What if it's an emergency?</summary>
         <div class="answer">
-          <p>
-            This website, email and WhatsApp are not for emergencies, and messages may not be seen straight away.
-          </p>
           <p class="note">
-            If you're in crisis or thinking about harming yourself, please call <strong>Tele-MANAS on
-            <a href="tel:14416">14416</a></strong> (free, 24/7), or contact your nearest emergency service or hospital
-            right away. You can also call <a href="tel:112">112</a>, India's emergency number.
+            This website, email and WhatsApp are not for emergencies. If you're in crisis, please call
+            <strong>Tele-MANAS on <a href="tel:14416">14416</a></strong> (free, 24/7), call
+            <a href="tel:112">112</a>, or go to your nearest emergency service.
           </p>
         </div>
       </details>
-    </div>
-
-    <div class="container narrow center still">
-      <p class="lead">Still have a question?</p>
-      <div class="btn-row cta-row">
-        <a href="/contact" class="btn btn--ghost">Get in touch</a>
-        <a href="/book" class="btn">Book a session</a>
-      </div>
     </div>
   </section>
+
+  <ClosingCta title="Still wondering?" lead="Just ask. There's no wrong question." href="/contact" label="Get in touch" />
 </Base>
 
 <style>
@@ -170,7 +137,13 @@ const s = site.sessions;
   .answer > :last-child { margin-bottom: 0; }
   .answer ul { margin: 0 0 1em; }
   .answer li + li { margin-top: 0.3rem; }
-  .still { margin-top: 3rem; }
-  .still .lead { margin-bottom: 1rem; }
-  .cta-row { justify-content: center; }
+  /* Smooth open/close where supported */
+  .faq details { interpolate-size: allow-keywords; }
+  .faq details::details-content {
+    block-size: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: block-size 0.6s var(--ease-calm), opacity 0.6s var(--ease-calm), content-visibility 0.6s allow-discrete;
+  }
+  .faq details[open]::details-content { block-size: auto; opacity: 1; }
 </style>

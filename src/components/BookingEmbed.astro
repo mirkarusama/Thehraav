@@ -9,7 +9,7 @@ const b = site.booking;
 const events = [
   { id: 'free', path: b.freeEvent },
   { id: 'regular', path: b.regularEvent },
-].map((e) => ({ ...e, ready: isFilled(e.path) && !e.path.includes('['), url: `${b.base}/${e.path}` }));
+].map((e) => ({ ...e, ready: b.live && isFilled(e.path) && !e.path.includes('['), url: `${b.base}/${e.path}` }));
 ---
 <div class="booking" data-booking data-base={b.base}>
   {events.map((e) => (

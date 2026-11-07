@@ -13,37 +13,37 @@ const s = site.sessions;
 >
   <PageIntro
     eyebrow="Book a session"
-    title="Choose a time that suits you."
-    lead="It takes about two minutes. Pick a session type below, then choose a slot."
+    title="Choose your time."
+    lead="Two minutes. Pick a session, then a slot."
   />
 
   <section class="section section--tight">
     <div class="container">
       <div class="choices">
-        <button type="button" class="choice" data-choose="free" aria-pressed="false">
+        <button type="button" class="choice reveal" style="--d:1" data-choose="free" aria-pressed="false">
           <span class="tag">New here?</span>
-          <span class="c-title">Free first session</span>
-          <span class="c-meta"><Val v={s.freeFirstLength} /> · Free · no payment needed</span>
+          <span class="c-title">First session</span>
+          <span class="c-meta"><Val v={s.freeFirstLength} /> · Free</span>
         </button>
-        <button type="button" class="choice" data-choose="regular" aria-pressed="false">
-          <span class="tag tag--sage">Returning or ready to start</span>
+        <button type="button" class="choice reveal" style="--d:3" data-choose="regular" aria-pressed="false">
+          <span class="tag tag--sage">Ongoing</span>
           <span class="c-title">Individual session</span>
-          <span class="c-meta"><Val v={s.length} /> · <Val v={s.fee} /> · paid securely via Razorpay</span>
+          <span class="c-meta"><Val v={s.length} /> · <Val v={s.fee} /> · via Razorpay</span>
         </button>
       </div>
 
       <BookingEmbed />
 
       <div class="after">
-        <div class="card">
-          <h2 class="h3">What happens after you book</h2>
+        <div class="card reveal">
+          <h2 class="h3">After you book</h2>
           <ol>
-            <li>You'll get a confirmation email with your video call link.</li>
-            <li>The email also has links to a short consent form and intake form. Please fill them in before your first session.</li>
-            <li>You'll get a reminder before your session.</li>
+            <li>An email with your video link.</li>
+            <li>Two short forms (consent and intake) to fill in before we meet.</li>
+            <li>A gentle reminder before your session.</li>
           </ol>
         </div>
-        <div class="card">
+        <div class="card reveal" style="--d:2">
           <h2 class="h3">Cancelling or rescheduling</h2>
           <CancellationPolicy />
         </div>

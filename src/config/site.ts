@@ -46,19 +46,22 @@ export const site = {
   },
 
   sessions: {
-    fee: '[FEE]',
-    length: '[SESSION LENGTH, e.g. 50 minutes]',
-    freeFirstLength: '[FREE SESSION LENGTH, e.g. 20 minutes]',
-    lateCancelCharge: '[FULL / HALF]',
-    hours: '[WORKING DAYS AND HOURS, e.g. Mon–Fri, hours TBC]',
+    // Recommended defaults (best guesses), confirm with Sarah.
+    fee: '₹1,200',
+    length: '50 minutes',
+    freeFirstLength: '20 minutes',
+    lateCancelCharge: 'half',
+    hours: 'Monday to Friday, 10 am to 7 pm IST',
   },
 
   booking: {
     // Cal ID event paths ('username/event-slug'), from https://cal.id/username/event-slug.
     // Filled in during Cal ID setup.
     base: 'https://cal.id',
-    freeEvent: '[CAL ID USERNAME]/[FREE EVENT SLUG]',
-    regularEvent: '[CAL ID USERNAME]/[REGULAR EVENT SLUG]',
+    // Set to true once both event types exist in Cal ID. Until then /book shows a friendly "coming soon" note.
+    live: false,
+    freeEvent: 'thehraav/free-first-session',
+    regularEvent: 'thehraav/individual-session',
   },
 
   // Formspree form ID, e.g. 'xyzabcd' from https://formspree.io/f/xyzabcd
@@ -66,14 +69,14 @@ export const site = {
 
   // Shows a "draft, review before launch" banner on the Privacy and Terms pages. Set to false once reviewed.
   legalDraft: true,
-  legalUpdated: '[DATE]',
+  legalUpdated: '7 November 2026',
   legalDetails: {
-    retention: '[RETENTION PERIOD, e.g. 3 years after your last session]',
-    responseTime: '[RESPONSE TIME, e.g. 30 days]',
-    minimumAge: '[MINIMUM AGE, e.g. 18]',
-    jurisdiction: '[CITY], India',
-    intakeFormService: '[FORM SERVICE: Google Forms / Tally / Jotform]',
-    videoService: '[Google Meet / Zoom]',
+    retention: 'three years after your last session',
+    responseTime: '30 days',
+    minimumAge: '18',
+    jurisdiction: 'Mumbai, India',
+    intakeFormService: 'Google Forms',
+    videoService: 'Google Meet',
   },
 
   emergency: {
