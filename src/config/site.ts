@@ -54,14 +54,27 @@ export const site = {
   },
 
   booking: {
-    // Cal ID links, e.g. 'sarah-shaikh/free-first-session'. Filled in during Cal ID setup.
-    calLink: '[CAL ID USERNAME]',
+    // Cal ID event paths ('username/event-slug'), from https://cal.id/username/event-slug.
+    // Filled in during Cal ID setup.
+    base: 'https://cal.id',
     freeEvent: '[CAL ID USERNAME]/[FREE EVENT SLUG]',
     regularEvent: '[CAL ID USERNAME]/[REGULAR EVENT SLUG]',
   },
 
   // Formspree form ID, e.g. 'xyzabcd' from https://formspree.io/f/xyzabcd
   formspreeId: '[FORMSPREE FORM ID]',
+
+  // Shows a "draft, review before launch" banner on the Privacy and Terms pages. Set to false once reviewed.
+  legalDraft: true,
+  legalUpdated: '[DATE]',
+  legalDetails: {
+    retention: '[RETENTION PERIOD, e.g. 3 years after your last session]',
+    responseTime: '[RESPONSE TIME, e.g. 30 days]',
+    minimumAge: '[MINIMUM AGE, e.g. 18]',
+    jurisdiction: '[CITY], India',
+    intakeFormService: '[FORM SERVICE: Google Forms / Tally / Jotform]',
+    videoService: '[Google Meet / Zoom]',
+  },
 
   emergency: {
     line: 'Tele-MANAS',

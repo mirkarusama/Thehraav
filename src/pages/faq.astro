@@ -1,0 +1,176 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+import Val from '../components/Val.astro';
+import CancellationPolicy from '../components/CancellationPolicy.astro';
+import { site } from '../config/site';
+const s = site.sessions;
+---
+<Base
+  title="FAQ: online counselling questions answered"
+  description="Answers to common questions about online counselling with Thehraav: the first session, confidentiality, how online sessions work, languages, payment, cancellations and emergencies."
+>
+  <PageIntro
+    eyebrow="FAQ"
+    title="Questions you might have."
+    lead="It's natural to have questions before starting counselling. If yours isn't answered here, please get in touch."
+  />
+
+  <section class="section section--tight">
+    <div class="container narrow faq">
+      <details>
+        <summary>What happens in the first session?</summary>
+        <div class="answer">
+          <p>
+            The first session is a gentle conversation. You can share what's been going on, what you'd like to change,
+            and ask me anything about how we'd work together. There's no pressure to share more than you're ready to.
+            By the end, we'll both have a sense of whether we're a good fit, and what the next steps could be.
+          </p>
+          <p>
+            For new clients, it's free and lasts <Val v={s.freeFirstLength} />. After booking, you'll get an email
+            with links to a short consent form and intake form to fill in before we meet.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Is it confidential?</summary>
+        <div class="answer">
+          <p>
+            Yes. What you share in sessions stays between us. Like all counsellors, I follow professional ethical
+            guidelines, and there are a few legal and safety limits, for example if someone's life is at serious risk.
+            These are explained clearly in the consent form you receive after booking.
+          </p>
+          <p>
+            To learn how booking details and messages are handled, see the <a href="/privacy">privacy policy</a>.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>How do online sessions work?</summary>
+        <div class="answer">
+          <p>
+            When you book, you'll get a private video call link by email. At the session time, just click the link.
+            There's nothing to install beyond what the link asks for.
+          </p>
+          <ul>
+            <li><strong>Find a quiet, private space</strong> where you won't be overheard or interrupted.</li>
+            <li><strong>Use headphones</strong> if you can, for extra privacy.</li>
+            <li><strong>Check your internet</strong> and charge your phone or laptop beforehand.</li>
+          </ul>
+          <p>If you get disconnected, don't worry. Just rejoin using the same link.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Which languages do you offer?</summary>
+        <div class="answer">
+          <p>
+            English and Hindi. Many people switch between the two, and that's completely fine. Speak in whatever
+            feels most natural to you.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>How does payment work?</summary>
+        <div class="answer">
+          <p>
+            The first session is free for new clients. For regular sessions (<Val v={s.fee} /> for <Val v={s.length} />),
+            you pay securely through Razorpay when you book, using UPI, card or netbanking. Your booking is confirmed
+            once payment goes through.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>What if I need to cancel or reschedule?</summary>
+        <div class="answer">
+          <CancellationPolicy />
+        </div>
+      </details>
+
+      <details>
+        <summary>Is this right for me?</summary>
+        <div class="answer">
+          <p>
+            If you're a woman who often feels overwhelmed by anxiety or by anger that's hard to control, and you'd
+            like practical ways to feel calmer and more in control, this could be a good fit. You don't need to have
+            everything figured out, or have tried counselling before.
+          </p>
+          <p>
+            Online counselling isn't the right fit for everything. If you're in crisis or need urgent care, please
+            reach out to emergency services first. If you're unsure, book a free first session or
+            <a href="/contact">send a message</a>, and we can talk it through.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>What should I do in an emergency?</summary>
+        <div class="answer">
+          <p>
+            This website, email and WhatsApp are not for emergencies, and messages may not be seen straight away.
+          </p>
+          <p class="note">
+            If you're in crisis or thinking about harming yourself, please call <strong>Tele-MANAS on
+            <a href="tel:14416">14416</a></strong> (free, 24/7), or contact your nearest emergency service or hospital
+            right away. You can also call <a href="tel:112">112</a>, India's emergency number.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="container narrow center still">
+      <p class="lead">Still have a question?</p>
+      <div class="btn-row cta-row">
+        <a href="/contact" class="btn btn--ghost">Get in touch</a>
+        <a href="/book" class="btn">Book a session</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .faq details {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 0.9rem;
+  }
+  .faq summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 1.2rem 3.4rem 1.2rem 1.5rem;
+    position: relative;
+    font-family: var(--font-serif);
+    font-variation-settings: 'SOFT' 100;
+    font-size: clamp(1.12rem, 2.4vw, 1.3rem);
+    font-weight: 500;
+    color: var(--sage-deep);
+    line-height: 1.35;
+    border-radius: var(--radius);
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after {
+    content: '';
+    position: absolute;
+    right: 1.4rem;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid var(--terracotta);
+    border-bottom: 2px solid var(--terracotta);
+    transform: translateY(-70%) rotate(45deg);
+    transition: transform 0.25s;
+  }
+  .faq details[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
+  .answer { padding: 0 1.5rem 1.3rem; }
+  .answer > :last-child { margin-bottom: 0; }
+  .answer ul { margin: 0 0 1em; }
+  .answer li + li { margin-top: 0.3rem; }
+  .still { margin-top: 3rem; }
+  .still .lead { margin-bottom: 1rem; }
+  .cta-row { justify-content: center; }
+</style>

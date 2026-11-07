@@ -1,0 +1,9 @@
+---
+// Cancellation policy, used on Services, Book and FAQ so the wording stays identical.
+import Val from './Val.astro';
+import { site } from '../config/site';
+---
+<p>
+  Please give at least 24 hours' notice to cancel or reschedule. You can do this anytime from the link in your
+  booking confirmation email. Late cancellations or missed sessions may be charged at <Val v={site.sessions.lateCancelCharge} /> the session fee.
+</p>

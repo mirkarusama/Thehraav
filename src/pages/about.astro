@@ -1,0 +1,144 @@
+---
+import Base from '../layouts/Base.astro';
+import BookButton from '../components/BookButton.astro';
+import PageIntro from '../components/PageIntro.astro';
+import { site } from '../config/site';
+const p = site.psychologist;
+---
+<Base
+  title="About Sarah Shaikh, counselling psychologist"
+  description="Sarah Shaikh is a counselling psychologist (M.A., Mumbai University; Diploma in CBT) offering warm, practical online counselling for women in English and Hindi."
+>
+  <PageIntro eyebrow="About" title="Hi, I'm Sarah Shaikh." lead="Counselling psychologist. Online sessions for women, in English and Hindi." />
+
+  <section class="section section--tight">
+    <div class="container about">
+      <img
+        class="about-photo"
+        src={p.photo}
+        alt={p.photoAlt}
+        width="640"
+        height="800"
+        decoding="async"
+      />
+      <div class="about-text">
+        <p class="big">
+          I work online with women who feel overwhelmed by anxiety, or by anger that's hard to control.
+        </p>
+        <p>
+          Maybe your worries keep you up at night. Maybe you snap at people you love and feel awful afterwards. Maybe
+          you're simply tired of feeling on edge. Whatever brings you here, you won't be judged, rushed or told what
+          you "should" feel.
+        </p>
+        <p>
+          My approach is warm, practical and free of judgement. I use CBT-based tools to help you understand your
+          thoughts and reactions, and to build calm, steady responses you can use in everyday life: at home, at work,
+          and in the moments that usually get the better of you.
+        </p>
+        <p>
+          The name of my practice, <em>Thehraav</em> (ठहराव), means a calm pause, a kind of steadiness. That's what I
+          hope our sessions give you: a pause from the noise, and a steadier way forward.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="container info-grid">
+      <div class="card">
+        <h2 class="h3">Qualifications</h2>
+        <ul class="ticks">
+          {p.qualifications.map((q) => <li>{q}</li>)}
+        </ul>
+      </div>
+      <div class="card">
+        <h2 class="h3">My approach: CBT</h2>
+        <p>
+          Cognitive Behavioural Therapy (CBT) looks at how your thoughts, feelings and actions affect each other. We
+          notice the patterns that keep you stuck, then practise small, realistic changes that help you feel calmer.
+        </p>
+      </div>
+      <div class="card">
+        <h2 class="h3">Languages</h2>
+        <p>
+          Sessions are in {p.languages.join(' or ')}, or a mix of both, whatever feels most natural to you.
+        </p>
+      </div>
+      <div class="card">
+        <h2 class="h3">Online, from wherever you are</h2>
+        <p>
+          All sessions are by private video call, so you can join from a quiet room at home, or anywhere you feel
+          comfortable.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow center">
+      <h2>Ready when you are.</h2>
+      <p class="lead">Your first session is free for new clients. It's a gentle chance to talk and see if we're a good fit.</p>
+      <div class="btn-row cta-row">
+        <BookButton />
+        <a href="/services" class="btn btn--ghost">See services and fees</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .about {
+    display: grid;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  @media (min-width: 48rem) {
+    .about { grid-template-columns: 0.75fr 1.25fr; gap: 4rem; }
+  }
+  .about-photo {
+    width: 100%;
+    max-width: 22rem;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 999px 999px var(--radius) var(--radius);
+    background: var(--sage-light);
+    justify-self: center;
+  }
+  .big {
+    font-family: var(--font-serif);
+    font-variation-settings: 'SOFT' 100;
+    font-size: clamp(1.3rem, 3vw, 1.6rem);
+    line-height: 1.45;
+    color: var(--sage-deep);
+  }
+  .info-grid {
+    display: grid;
+    gap: 1.2rem;
+  }
+  @media (min-width: 44rem) {
+    .info-grid { grid-template-columns: 1fr 1fr; gap: 1.6rem; }
+  }
+  .info-grid p:last-child { margin-bottom: 0; }
+  .h3 { font-size: clamp(1.25rem, 2.6vw, 1.45rem); font-weight: 520; }
+  .ticks {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .ticks li {
+    position: relative;
+    padding-left: 1.6rem;
+  }
+  .ticks li + li { margin-top: 0.5rem; }
+  .ticks li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--terracotta);
+  }
+  .cta-row { justify-content: center; }
+</style>

@@ -1,0 +1,157 @@
+---
+import Base from '../layouts/Base.astro';
+import BookButton from '../components/BookButton.astro';
+import PageIntro from '../components/PageIntro.astro';
+import Val from '../components/Val.astro';
+import CancellationPolicy from '../components/CancellationPolicy.astro';
+import { site } from '../config/site';
+const s = site.sessions;
+---
+<Base
+  title="Services and fees: online counselling for anxiety and anger"
+  description="One-to-one online counselling sessions for women dealing with anxiety or anger, in English and Hindi. See what support looks like, session fees, the free first session and the cancellation policy."
+>
+  <PageIntro
+    eyebrow="Services"
+    title="Online sessions for women, one to one."
+    lead="Private video sessions in English or Hindi, shaped around what you need. Here's what we can work on together, and how it works."
+  />
+
+  <section class="section section--tight">
+    <div class="container two-col">
+      <article class="card">
+        <h2 class="h3">Support for anxiety</h2>
+        <p>For when worry takes over: racing thoughts, a tight chest, trouble sleeping, or always expecting the worst.</p>
+        <p class="label">Together we might:</p>
+        <ul class="dots">
+          <li>Understand what triggers your anxiety, and why your body reacts the way it does</li>
+          <li>Notice anxious thinking patterns and gently question them</li>
+          <li>Practise grounding and breathing tools that work in the moment</li>
+          <li>Take small, manageable steps towards the things you've been avoiding</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h2 class="h3">Support for anger</h2>
+        <p>For when anger arrives fast and feels hard to control, and leaves you with guilt, tension or hurt relationships.</p>
+        <p class="label">Together we might:</p>
+        <ul class="dots">
+          <li>Spot your early warning signs before anger takes over</li>
+          <li>Understand the feelings and needs that often sit underneath anger</li>
+          <li>Build ways to pause, cool down and respond the way you want to</li>
+          <li>Practise calmer ways to say what you need, at home and at work</li>
+        </ul>
+      </article>
+    </div>
+    <div class="container narrow center after-cards">
+      <p class="muted">
+        Sessions use practical, CBT-based tools, and go at your pace. You'll leave each one with something you can
+        actually use in the week ahead.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--sand" id="fees">
+    <div class="container">
+      <div class="narrow center">
+        <h2>Sessions and fees</h2>
+        <p class="lead">Simple and clear, with no packages or long commitments.</p>
+      </div>
+      <div class="fee-grid">
+        <div class="card fee fee--free">
+          <p class="tag">New clients</p>
+          <h3>Free first session</h3>
+          <p class="price">Free</p>
+          <p class="meta"><Val v={s.freeFirstLength} /> · online</p>
+          <p>A relaxed first conversation. Tell me what's going on, ask any questions, and see if we're a good fit. No payment details needed.</p>
+          <BookButton label="Book a free first session" href="/book#free" />
+        </div>
+        <div class="card fee">
+          <p class="tag">Ongoing support</p>
+          <h3>Individual session</h3>
+          <p class="price"><Val v={s.fee} /></p>
+          <p class="meta"><Val v={s.length} /> · online</p>
+          <p>A one-to-one session by private video call, in English or Hindi. You pay securely through Razorpay when you book (UPI, cards and netbanking).</p>
+          <BookButton label="Book a session" variant="ghost" href="/book#regular" />
+        </div>
+      </div>
+      <p class="center small muted hours">Sessions are available <Val v={s.hours} />.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow">
+      <h2>Cancellation policy</h2>
+      <CancellationPolicy />
+      <p>
+        Have a question before booking? <a href="/faq">Read the FAQ</a> or <a href="/contact">get in touch</a>.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .two-col {
+    display: grid;
+    gap: 1.2rem;
+  }
+  @media (min-width: 48rem) {
+    .two-col { grid-template-columns: 1fr 1fr; gap: 1.6rem; }
+  }
+  .h3 { font-size: clamp(1.35rem, 2.8vw, 1.6rem); font-weight: 520; }
+  .label { font-weight: 700; margin-bottom: 0.5rem; }
+  .dots { list-style: none; padding: 0; margin: 0; }
+  .dots li { position: relative; padding-left: 1.4rem; }
+  .dots li + li { margin-top: 0.45rem; }
+  .dots li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--sage);
+  }
+  .after-cards { margin-top: 2rem; }
+  .after-cards p { margin: 0; }
+
+  .fee-grid {
+    display: grid;
+    gap: 1.2rem;
+    margin-top: 2rem;
+    max-width: 52rem;
+    margin-inline: auto;
+  }
+  @media (min-width: 44rem) {
+    .fee-grid { grid-template-columns: 1fr 1fr; gap: 1.6rem; }
+  }
+  .fee {
+    display: flex;
+    flex-direction: column;
+  }
+  .fee .btn { margin-top: auto; align-self: flex-start; }
+  .fee h3 { margin-bottom: 0.3rem; }
+  .fee--free { outline: 2px solid var(--sage); outline-offset: -2px; }
+  .tag {
+    align-self: flex-start;
+    background: var(--rose);
+    color: var(--ink);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    padding: 0.2rem 0.8rem;
+    margin-bottom: 1rem;
+  }
+  .price {
+    font-family: var(--font-serif);
+    font-variation-settings: 'SOFT' 100;
+    font-size: 2rem;
+    color: var(--sage-deep);
+    margin: 0.2rem 0 0;
+    line-height: 1.2;
+  }
+  .meta { color: var(--ink-soft); font-weight: 600; margin-bottom: 1rem; }
+  .hours { margin: 2rem 0 0; }
+</style>

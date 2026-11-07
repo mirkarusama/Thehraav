@@ -1,0 +1,102 @@
+---
+import LegalLayout from '../components/LegalLayout.astro';
+import Val from '../components/Val.astro';
+import CancellationPolicy from '../components/CancellationPolicy.astro';
+import { site } from '../config/site';
+const d = site.legalDetails;
+const email = site.contact.email;
+---
+<LegalLayout
+  title="Terms"
+  description="The terms for using the Thehraav Counselling website and booking online counselling sessions, in plain language."
+>
+  <p>
+    These terms explain how this website and our online counselling sessions work. By using the site or booking a
+    session, you agree to them. If anything is unclear, please <a href="/contact">get in touch</a>.
+  </p>
+
+  <h2>About the service</h2>
+  <ul>
+    <li>
+      Thehraav Counselling offers online, one-to-one counselling with {site.psychologist.name}, counselling
+      psychologist, in English and Hindi.
+    </li>
+    <li>
+      Counselling is a collaborative process. It can help a great deal, but results can't be guaranteed, and progress
+      depends on many things.
+    </li>
+    <li>
+      Counselling is not a medical or psychiatric service and doesn't replace one. Sarah doesn't diagnose medical
+      conditions or prescribe medication. If you need those, she may suggest other professionals.
+    </li>
+    <li>Sessions are for adults aged <Val v={d.minimumAge} /> and over.</li>
+  </ul>
+
+  <h2>Not an emergency service</h2>
+  <p>
+    This website, email and WhatsApp are not monitored around the clock and are not for emergencies. If you're in
+    crisis, please call Tele-MANAS on <a href="tel:14416">14416</a> (free, 24/7), call <a href="tel:112">112</a>, or go
+    to your nearest emergency service.
+  </p>
+
+  <h2>Booking and payment</h2>
+  <ul>
+    <li>Sessions are booked through Cal ID, our booking tool.</li>
+    <li>New clients can book one free first session.</li>
+    <li>
+      Regular sessions cost <Val v={site.sessions.fee} /> for <Val v={site.sessions.length} /> and are paid in full when
+      you book, through Razorpay. Your booking is confirmed once payment is successful.
+    </li>
+    <li>Fees may change in future. Any change won't affect sessions you've already paid for.</li>
+  </ul>
+
+  <h2>Cancelling and rescheduling</h2>
+  <CancellationPolicy />
+  <p>
+    If Sarah needs to cancel, <span class="ph">[TO CONFIRM: e.g. you'll be offered a new time or a full refund]</span>.
+    Refunds are made through Razorpay to your original payment method.
+  </p>
+
+  <h2>Online sessions</h2>
+  <ul>
+    <li>Please join from a private, quiet space, using a reliable internet connection.</li>
+    <li><span class="ph">[TO CONFIRM]</span> Recording sessions isn't allowed by either side without written agreement.</li>
+    <li>If the connection drops, rejoin using the same link. If a session can't continue because of technical problems on our side, <span class="ph">[TO CONFIRM: e.g. we'll arrange to make up the time]</span>.</li>
+  </ul>
+
+  <h2>Confidentiality</h2>
+  <p>
+    What you share in sessions is kept confidential, within professional ethical guidelines and the law. The limits of
+    confidentiality are explained in the consent form you receive after booking. For how your data is handled, see the
+    <a href="/privacy">privacy policy</a>.
+  </p>
+
+  <h2>Using this website</h2>
+  <ul>
+    <li>
+      Information on this website is general and for information only. It isn't a substitute for personal,
+      professional advice.
+    </li>
+    <li>
+      The website links to other services (such as Cal ID, Razorpay and WhatsApp). We're not responsible for their
+      content or how they work.
+    </li>
+    <li>The website's text, design and logo belong to Thehraav Counselling. Please don't copy them without permission.</li>
+  </ul>
+
+  <h2>Our responsibility</h2>
+  <p>
+    We take care to provide a safe, professional service. To the extent the law allows, we're not responsible for
+    losses caused by things outside our reasonable control, such as internet outages or problems with third-party
+    services.
+  </p>
+
+  <h2>Governing law</h2>
+  <p>These terms are governed by the laws of India. Any disputes will be handled by the courts of <Val v={d.jurisdiction} />.</p>
+
+  <h2>Changes and contact</h2>
+  <p>
+    We may update these terms from time to time, and the date at the top will show when. Questions? Email
+    <a href={`mailto:${email}`}>{email}</a>.
+  </p>
+</LegalLayout>

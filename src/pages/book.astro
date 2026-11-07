@@ -1,0 +1,116 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+import Val from '../components/Val.astro';
+import BookingEmbed from '../components/BookingEmbed.astro';
+import CancellationPolicy from '../components/CancellationPolicy.astro';
+import { site } from '../config/site';
+const s = site.sessions;
+---
+<Base
+  title="Book a session"
+  description="Book an online counselling session with Sarah Shaikh. New clients can start with a free first session. Choose a time that suits you in about two minutes."
+>
+  <PageIntro
+    eyebrow="Book a session"
+    title="Choose a time that suits you."
+    lead="It takes about two minutes. Pick a session type below, then choose a slot."
+  />
+
+  <section class="section section--tight">
+    <div class="container">
+      <div class="choices">
+        <button type="button" class="choice" data-choose="free" aria-pressed="false">
+          <span class="tag">New here?</span>
+          <span class="c-title">Free first session</span>
+          <span class="c-meta"><Val v={s.freeFirstLength} /> · Free · no payment needed</span>
+        </button>
+        <button type="button" class="choice" data-choose="regular" aria-pressed="false">
+          <span class="tag tag--sage">Returning or ready to start</span>
+          <span class="c-title">Individual session</span>
+          <span class="c-meta"><Val v={s.length} /> · <Val v={s.fee} /> · paid securely via Razorpay</span>
+        </button>
+      </div>
+
+      <BookingEmbed />
+
+      <div class="after">
+        <div class="card">
+          <h2 class="h3">What happens after you book</h2>
+          <ol>
+            <li>You'll get a confirmation email with your video call link.</li>
+            <li>The email also has links to a short consent form and intake form. Please fill them in before your first session.</li>
+            <li>You'll get a reminder before your session.</li>
+          </ol>
+        </div>
+        <div class="card">
+          <h2 class="h3">Cancelling or rescheduling</h2>
+          <CancellationPolicy />
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .choices {
+    display: grid;
+    gap: 1rem;
+  }
+  @media (min-width: 44rem) {
+    .choices { grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+  }
+  .choice {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    text-align: left;
+    font: inherit;
+    color: var(--ink);
+    background: var(--white);
+    border: 2px solid var(--sand-deep);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.6rem;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .choice:hover { border-color: var(--sage); }
+  .choice[aria-pressed='true'] {
+    border-color: var(--terracotta);
+    box-shadow: 0 0 0 4px var(--rose), var(--shadow);
+  }
+  .c-title {
+    font-family: var(--font-serif);
+    font-variation-settings: 'SOFT' 100;
+    font-size: 1.5rem;
+    color: var(--sage-deep);
+    line-height: 1.2;
+  }
+  .c-meta { color: var(--ink-soft); font-weight: 600; font-size: 1rem; }
+  .tag {
+    background: var(--rose);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    padding: 0.2rem 0.8rem;
+    margin-bottom: 0.4rem;
+  }
+  .tag--sage { background: var(--sage-light); color: var(--sage-deep); }
+
+  .after {
+    display: grid;
+    gap: 1.2rem;
+    margin-top: 3rem;
+  }
+  @media (min-width: 48rem) {
+    .after { grid-template-columns: 1fr 1fr; gap: 1.6rem; }
+  }
+  .after ol { padding-left: 1.2em; margin: 0; }
+  .after li + li { margin-top: 0.4rem; }
+  .after p:last-child { margin-bottom: 0; }
+  .h3 { font-size: clamp(1.25rem, 2.6vw, 1.45rem); font-weight: 520; }
+</style>

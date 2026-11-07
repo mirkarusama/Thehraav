@@ -1,0 +1,117 @@
+---
+import LegalLayout from '../components/LegalLayout.astro';
+import Val from '../components/Val.astro';
+import { site } from '../config/site';
+const d = site.legalDetails;
+const email = site.contact.email;
+---
+<LegalLayout
+  title="Privacy policy"
+  description="How Thehraav Counselling collects, uses and protects your personal data, in plain language, and how to ask for it to be deleted."
+>
+  <p>
+    Your privacy matters, especially when you're reaching out for support. This policy explains, in plain language,
+    what personal data Thehraav Counselling collects, why, where it's kept, and the choices you have. It's written to
+    follow India's Digital Personal Data Protection Act, 2023 (DPDP Act).
+  </p>
+
+  <h2>Who we are</h2>
+  <p>
+    Thehraav Counselling is the online counselling practice of {site.psychologist.name}, counselling psychologist.
+    For this policy, Sarah is responsible for your personal data (the "Data Fiduciary" under the DPDP Act). You can
+    contact her at <a href={`mailto:${email}`}>{email}</a>.
+  </p>
+
+  <h2>The short version</h2>
+  <ul>
+    <li>This website itself does not store any of your personal data. There are no accounts and no database.</li>
+    <li>When you book, your details go to our booking tool (Cal ID). When you send a message, it goes to Sarah's email.</li>
+    <li>We only use your data to arrange and provide your sessions and to reply to you.</li>
+    <li>We never sell your data or use it for advertising.</li>
+    <li>You can ask to see, correct or delete your data at any time.</li>
+  </ul>
+
+  <h2>What we collect, and why</h2>
+  <ul>
+    <li>
+      <strong>Booking details</strong>: your name, email, the time you choose, and any answers you give to the short
+      booking questions (for example, what you'd like help with or your preferred language). We use these to schedule
+      your session, send confirmations and reminders, and prepare for your first session.
+    </li>
+    <li>
+      <strong>Payment details</strong>: payments are handled by Razorpay. We see that a payment was made and how much,
+      but we never see or store your card, UPI or bank details.
+    </li>
+    <li>
+      <strong>Contact form messages</strong>: your name, email and message. We use these only to reply to you.
+    </li>
+    <li>
+      <strong>WhatsApp and email messages</strong>: if you contact Sarah this way, your messages and number or email
+      address are kept by those services and used only to reply to you.
+    </li>
+    <li>
+      <strong>Consent and intake forms</strong>: after booking, you're sent links to these forms. They help Sarah
+      understand your needs and record your consent to counselling.
+    </li>
+  </ul>
+  <p>
+    We rely on your consent to process this data, which you give when you book, send a message or fill in a form. You
+    can withdraw your consent at any time by emailing us. This won't affect anything already done, but it may mean we
+    can't continue sessions.
+  </p>
+
+  <h2>Where your data is stored</h2>
+  <p>We use a small number of trusted services to run the practice. Each has its own privacy policy:</p>
+  <ul>
+    <li><strong>Cal ID</strong> (booking and calendar), which stores booking details and booking-question answers</li>
+    <li><strong>Razorpay</strong> (payments), which processes payments for paid sessions</li>
+    <li><strong>Formspree</strong> (contact form), which passes your message to Sarah's email</li>
+    <li><strong>Microsoft Outlook</strong> (email), where messages and booking notifications are received</li>
+    <li><strong><Val v={d.intakeFormService} /></strong> (consent and intake forms)</li>
+    <li><strong><Val v={d.videoService} /></strong> (video sessions). Calls happen live on this service.</li>
+    <li><strong>Railway</strong> (website hosting), which may keep basic technical logs such as IP addresses for security</li>
+  </ul>
+  <p>
+    Some of these services may store data outside India. We choose providers with strong security practices, and we
+    only share what each one needs to do its job.
+  </p>
+
+  <h2>Cookies</h2>
+  <p>
+    This website doesn't use analytics, advertising or tracking cookies. When you open the booking calendar, Cal ID
+    may set cookies needed for booking to work.
+  </p>
+
+  <h2>How long we keep it</h2>
+  <p>
+    We keep your data only as long as needed to provide your sessions and meet professional and legal record-keeping
+    duties, which is usually <Val v={d.retention} />. After that, it's deleted.
+  </p>
+
+  <h2>Your rights</h2>
+  <p>Under the DPDP Act, you can:</p>
+  <ul>
+    <li>Ask what personal data we hold about you and how it's used</li>
+    <li>Ask us to correct or update your data</li>
+    <li>Ask us to delete your data (unless we must keep it by law)</li>
+    <li>Withdraw your consent</li>
+    <li>Nominate someone to exercise these rights for you in case of death or incapacity</li>
+    <li>Raise a concern or complaint with us</li>
+  </ul>
+
+  <h2>How to ask for your data to be deleted</h2>
+  <p>
+    Email <a href={`mailto:${email}`}>{email}</a> with the subject line "Data request", and tell us what you'd like us
+    to do. We may ask you to confirm your identity. We'll respond within <Val v={d.responseTime} />.
+  </p>
+
+  <h2>Complaints</h2>
+  <p>
+    If you have a concern about how your data is handled, please contact us first at
+    <a href={`mailto:${email}`}>{email}</a>. If you're not satisfied with our response, you can complain to the Data
+    Protection Board of India.
+  </p>
+
+  <h2>Changes to this policy</h2>
+  <p>If we make important changes, we'll update this page and the date at the top.</p>
+</LegalLayout>
