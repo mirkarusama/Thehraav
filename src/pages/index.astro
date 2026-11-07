@@ -1,7 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import BookButton from '../components/BookButton.astro';
-import StillWater from '../components/StillWater.astro';
+import ScrubText from '../components/ScrubText.astro';
+import Breathe from '../components/Breathe.astro';
 import { site } from '../config/site';
 const p = site.psychologist;
 ---
@@ -10,248 +11,316 @@ const p = site.psychologist;
   title="Online counselling for women: anxiety and anger | Thehraav Counselling"
   description="Warm, practical, CBT-based online counselling for women who feel overwhelmed by anxiety or anger. Sessions in English and Hindi with Sarah Shaikh. Your first session is free."
 >
-  <!-- Hero -->
+  <!-- 1. Hero -->
   <section class="hero">
-    <div class="container hero-grid">
-      <div class="hero-text">
-        <p class="eyebrow">Online counselling for women · English &amp; Hindi</p>
-        <h1>When anxiety or anger feels like too much, you deserve a place to pause.</h1>
-        <p class="lead">
-          I'm Sarah, a counselling psychologist. I help women understand what's going on inside and find calmer,
-          steadier ways to respond, with practical tools and no judgement.
-        </p>
-        <div class="btn-row">
-          <BookButton />
-          <a href="#how-it-works" class="btn btn--ghost">How it works</a>
-        </div>
-        <p class="free-note small">Your first session is free for new clients.</p>
-        <p class="creds small muted">M.A. Counselling Psychology (Mumbai University) · Diploma in CBT</p>
+    <div class="container hero-inner">
+      <p class="eyebrow reveal">Online counselling for women</p>
+      <h1 class="hero-title">
+        <span class="reveal" style="--d:1">Find your</span>
+        <span class="reveal" style="--d:3"><em>calm</em> again.</span>
+      </h1>
+      <p class="lead reveal" style="--d:5">Gentle support for anxiety and anger.<br />In English and Hindi.</p>
+      <div class="btn-row reveal" style="--d:7">
+        <BookButton />
       </div>
-      <div class="hero-art">
-        <StillWater />
-      </div>
+      <p class="small muted reveal" style="--d:8">First session free</p>
     </div>
+    <a href="#feel" class="scroll-cue reveal" style="--d:10" aria-label="Scroll down">
+      <span></span>
+    </a>
   </section>
 
-  <!-- Feeling understood -->
-  <section class="section section--sand">
+  <!-- 2. Feeling understood: words light up as you scroll -->
+  <div id="feel">
+    <ScrubText lines={["When worry won't switch off.", 'When anger rises too fast.', 'You deserve a pause.']} />
+  </div>
+
+  <!-- 3. The meaning of the name -->
+  <section class="section meaning">
     <div class="container narrow center">
-      <h2>Does any of this feel familiar?</h2>
-    </div>
-    <div class="container">
-      <ul class="familiar">
-        <li class="card">Your mind races and won't switch off, even when you're tired.</li>
-        <li class="card">Small things set off big anger, and you feel guilty afterwards.</li>
-        <li class="card">You're always on edge, holding everything together for everyone else.</li>
-        <li class="card">You miss feeling like yourself: calm, clear and in control.</li>
-      </ul>
-      <p class="center lead reassure">
-        You're not too much, and you're not alone. These feelings are common, and with the right support, they can change.
-      </p>
+      <p class="devanagari reveal" lang="hi">ठहराव</p>
+      <h2 class="reveal" style="--d:2">Thehraav means <em>a calm pause</em>.</h2>
+      <p class="lead reveal" style="--d:4">A steady place to slow down, and begin again.</p>
     </div>
   </section>
 
-  <!-- How it works -->
+  <!-- 4. Breathe -->
+  <section class="section breathe-sec">
+    <div class="container center">
+      <div class="reveal"><Breathe /></div>
+      <p class="muted reveal" style="--d:2">Take one slow breath with it. That's where we begin.</p>
+    </div>
+  </section>
+
+  <!-- 5. How it works: a line draws through the steps -->
   <section class="section" id="how-it-works">
     <div class="container">
-      <div class="narrow center">
-        <h2>How it works</h2>
-        <p class="lead">Three simple steps. You can start whenever you're ready.</p>
-      </div>
-      <ol class="steps">
-        <li>
-          <span class="step-num" aria-hidden="true">1</span>
+      <h2 class="center reveal">Three gentle steps</h2>
+      <ol class="steps" data-scrub="enter">
+        <li class="reveal" style="--d:1">
+          <span class="dot" aria-hidden="true"></span>
           <h3>Book</h3>
-          <p>Choose a time that suits you. It takes about two minutes, and your first session is free.</p>
+          <p>Pick a time. Two minutes.</p>
         </li>
-        <li>
-          <span class="step-num" aria-hidden="true">2</span>
+        <li class="reveal" style="--d:3">
+          <span class="dot" aria-hidden="true"></span>
           <h3>Meet online</h3>
-          <p>We talk over a private video call, in English or Hindi, from wherever you feel comfortable.</p>
+          <p>A private video call, from home.</p>
         </li>
-        <li>
-          <span class="step-num" aria-hidden="true">3</span>
+        <li class="reveal" style="--d:5">
+          <span class="dot" aria-hidden="true"></span>
           <h3>Feel steadier</h3>
-          <p>Together we understand what's driving the overwhelm, and practise tools you can use in everyday life.</p>
+          <p>Practical tools for everyday life.</p>
         </li>
       </ol>
-      <div class="center">
-        <BookButton label="Book your free first session" href="/book#free" />
-      </div>
     </div>
   </section>
 
-  <!-- Meet Sarah -->
-  <section class="section section--sand">
-    <div class="container meet">
-      <img
-        class="meet-photo"
-        src={p.photo}
-        alt={p.photoAlt}
-        width="640"
-        height="800"
-        loading="lazy"
-        decoding="async"
-      />
-      <div>
-        <p class="eyebrow">Meet your counsellor</p>
-        <h2>Hi, I'm {p.name}.</h2>
-        <p>
-          I'm a counselling psychologist, and I work online with women who feel overwhelmed by anxiety or anger
-          that's hard to control. My approach is warm, practical and free of judgement. Together, we'll make sense of
-          your thoughts and reactions, and build calm, steady responses you can rely on.
-        </p>
-        <ul class="chip-list" aria-label="Qualifications and languages">
-          {p.qualifications.map((q) => <li class="chip">{q}</li>)}
-          <li class="chip">Sessions in {p.languages.join(' and ')}</li>
-        </ul>
-        <a href="/about" class="btn btn--ghost">More about Sarah</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Closing -->
+  <!-- 6. Meet Sarah -->
   <section class="section">
-    <div class="container narrow center closing">
-      <h2>Take the first pause.</h2>
-      <p class="lead">
-        A free first session is a gentle way to see if we're a good fit. There's no pressure and no commitment.
-      </p>
-      <div class="btn-row">
-        <BookButton />
-        <a href="/contact" class="btn btn--ghost">Ask a question first</a>
+    <div class="container meet">
+      <div class="photo-wrap reveal">
+        <img class="meet-photo" src={p.photo} alt={p.photoAlt} width="640" height="800" loading="lazy" decoding="async" />
+      </div>
+      <div>
+        <p class="eyebrow reveal">Your counsellor</p>
+        <h2 class="reveal" style="--d:1">Hi, I'm Sarah.</h2>
+        <p class="lead reveal" style="--d:2">Warm, practical, and free of judgement.</p>
+        <ul class="creds reveal" style="--d:3">
+          <li>M.A. Counselling Psychology, Mumbai University</li>
+          <li>Diploma in CBT</li>
+          <li>English and Hindi</li>
+        </ul>
+        <a href="/about" class="text-link reveal" style="--d:4">More about me <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Closing -->
+  <section class="section closing">
+    <div class="container narrow center">
+      <h2 class="big reveal">Take the first pause.</h2>
+      <p class="lead reveal" style="--d:2">Your first session is free.</p>
+      <div class="btn-row reveal" style="--d:3">
+        <BookButton href="/book#free" label="Book a free session" />
       </div>
     </div>
   </section>
 </Base>
 
 <style>
+  /* Hero */
   .hero {
-    padding-block: clamp(2.5rem, 7vw, 5.5rem) var(--section);
-  }
-  .hero-grid {
+    position: relative;
+    min-height: calc(100svh - 4.5rem);
     display: grid;
-    gap: 2.5rem;
     align-items: center;
+    padding-block: 3rem 5rem;
   }
-  @media (min-width: 52rem) {
-    .hero-grid {
-      grid-template-columns: 1.25fr 0.85fr;
-      gap: 4rem;
-    }
+  .hero-title {
+    font-size: clamp(3rem, 11vw, 6.6rem);
+    line-height: 1.02;
+    font-weight: 400;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.4rem;
   }
-  .hero-text .lead {
-    margin-bottom: 1.8rem;
+  .hero-title span {
+    display: block;
   }
-  .free-note {
-    margin: 1.1rem 0 0.3rem;
-    font-weight: 700;
-    color: var(--sage-deep);
+  .hero-title em,
+  .meaning em {
+    color: var(--terracotta);
   }
-  .creds {
-    margin: 0;
+  .hero .lead {
+    margin-bottom: 2rem;
   }
-  .hero-art {
-    max-width: 22rem;
-    width: 62%;
-    justify-self: center;
+  .hero .small {
+    margin: 0.9rem 0 0;
   }
-  @media (min-width: 52rem) {
-    .hero-art {
-      width: 100%;
-      max-width: 26rem;
-      justify-self: end;
-    }
+  .scroll-cue {
+    position: absolute;
+    left: 50%;
+    bottom: 1.6rem;
+    margin-left: -13px;
+    width: 26px;
+    height: 42px;
+    border: 1.5px solid var(--sage);
+    border-radius: 999px;
+  }
+  .scroll-cue span {
+    position: absolute;
+    left: 50%;
+    top: 8px;
+    width: 4px;
+    height: 8px;
+    margin-left: -2px;
+    border-radius: 4px;
+    background: var(--sage-deep);
+    animation: cue 2.6s var(--ease-calm) infinite;
+  }
+  @keyframes cue {
+    0% { transform: translateY(0); opacity: 0; }
+    30% { opacity: 1; }
+    80%, 100% { transform: translateY(14px); opacity: 0; }
   }
 
-  .familiar {
+  /* Meaning */
+  .devanagari {
+    font-size: clamp(3.5rem, 14vw, 7rem);
+    line-height: 1.2;
+    color: var(--sage);
+    margin-bottom: 0.6rem;
+    font-family: 'Noto Serif Devanagari', 'Tiro Devanagari Hindi', serif;
+  }
+  .meaning h2 {
+    font-size: clamp(1.9rem, 5.4vw, 3rem);
+    font-weight: 400;
+  }
+  .meaning .lead {
+    margin-inline: auto;
+  }
+
+  .breathe-sec p {
+    margin-top: 2rem;
+  }
+
+  /* Steps with a drawn connecting line */
+  .steps {
+    position: relative;
     list-style: none;
     padding: 0;
-    margin: 1rem 0 2.5rem;
+    margin: 3rem auto 0;
+    max-width: 60rem;
     display: grid;
-    gap: 1rem;
+    gap: 2.6rem;
   }
-  @media (min-width: 40rem) {
-    .familiar { grid-template-columns: 1fr 1fr; }
-  }
-  @media (min-width: 64rem) {
-    .familiar { grid-template-columns: repeat(4, 1fr); }
-  }
-  .familiar .card {
-    position: relative;
-    padding-top: 2.4rem;
-  }
-  .familiar .card::before {
+  .steps::before {
+    /* the line: vertical on mobile, horizontal on desktop */
     content: '';
     position: absolute;
-    top: 1.3rem;
-    left: clamp(1.4rem, 4vw, 2.2rem);
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--terracotta);
-    opacity: 0.85;
-  }
-  .reassure {
-    max-width: 40rem;
-    margin-inline: auto;
-    margin-bottom: 0;
-    color: var(--sage-deep);
-    font-family: var(--font-serif);
-    font-variation-settings: 'SOFT' 100;
-    font-size: clamp(1.25rem, 3vw, 1.55rem);
-    line-height: 1.45;
-  }
-
-  .steps {
-    list-style: none;
-    padding: 0;
-    margin: 2.5rem 0 3rem;
-    display: grid;
-    gap: 1.2rem;
-  }
-  @media (min-width: 48rem) {
-    .steps { grid-template-columns: repeat(3, 1fr); gap: 1.6rem; }
+    left: 11px;
+    top: 12px;
+    bottom: 12px;
+    width: 2px;
+    background: linear-gradient(var(--sage), var(--terracotta));
+    transform-origin: top;
+    transform: scaleY(var(--p, 1));
+    border-radius: 2px;
   }
   .steps li {
-    background: var(--white);
-    border-radius: var(--radius);
-    padding: 1.8rem;
-    box-shadow: var(--shadow);
+    position: relative;
+    padding-left: 3.2rem;
   }
-  .steps p { margin: 0; }
-  .step-num {
-    display: grid;
-    place-items: center;
-    width: 2.6rem;
-    height: 2.6rem;
+  .steps h3 {
+    font-size: clamp(1.5rem, 3.4vw, 2rem);
+    font-weight: 420;
+    margin-bottom: 0.3rem;
+  }
+  .steps p {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+  .dot {
+    position: absolute;
+    left: 0;
+    top: 0.35rem;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
-    background: var(--sage-light);
-    color: var(--sage-deep);
-    font-family: var(--font-serif);
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
+    background: var(--cream);
+    border: 2px solid var(--sage);
+    box-shadow: 0 0 0 6px var(--cream);
+  }
+  .steps li:last-child .dot {
+    border-color: var(--terracotta);
+    background: var(--terracotta);
+  }
+  @media (min-width: 48rem) {
+    .steps {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      text-align: center;
+    }
+    .steps::before {
+      left: 16%;
+      right: 16%;
+      top: 11px;
+      bottom: auto;
+      width: auto;
+      height: 2px;
+      background: linear-gradient(90deg, var(--sage), var(--terracotta));
+      transform-origin: left;
+      transform: scaleX(var(--p, 1));
+    }
+    .steps li {
+      padding-left: 0;
+      padding-top: 3.2rem;
+    }
+    .dot {
+      left: 50%;
+      top: 0;
+      margin-left: -12px;
+    }
   }
 
+  /* Meet Sarah */
   .meet {
     display: grid;
     gap: 2.5rem;
     align-items: center;
+    max-width: 60rem;
   }
   @media (min-width: 48rem) {
-    .meet { grid-template-columns: 0.8fr 1.2fr; gap: 4rem; }
+    .meet { grid-template-columns: 0.85fr 1.15fr; gap: 4.5rem; }
+  }
+  .photo-wrap {
+    justify-self: center;
+    width: 100%;
+    max-width: 22rem;
   }
   .meet-photo {
     width: 100%;
-    max-width: 24rem;
     aspect-ratio: 4 / 5;
     object-fit: cover;
     border-radius: 999px 999px var(--radius) var(--radius);
-    justify-self: center;
     background: var(--sage-light);
   }
+  .meet h2 {
+    font-size: clamp(2.2rem, 6vw, 3.4rem);
+    font-weight: 400;
+    margin-bottom: 0.4rem;
+  }
+  .creds {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.6rem;
+    color: var(--ink-soft);
+    font-size: 1rem;
+  }
+  .creds li {
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--sand-deep);
+  }
+  .text-link {
+    display: inline-block;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 2px solid var(--terracotta);
+    padding-bottom: 2px;
+  }
 
+  /* Closing */
+  .closing {
+    padding-block: calc(var(--section) * 1.4);
+  }
+  .big {
+    font-size: clamp(2.4rem, 8vw, 4.6rem);
+    font-weight: 400;
+  }
+  .closing .lead {
+    margin-inline: auto;
+    margin-bottom: 2rem;
+  }
   .closing .btn-row {
     justify-content: center;
   }

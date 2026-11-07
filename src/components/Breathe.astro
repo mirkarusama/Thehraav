@@ -1,0 +1,68 @@
+---
+// A slow breathing circle: 5 seconds in, 5 seconds out.
+---
+<div class="breathe" aria-hidden="true">
+  <div class="b-ring"></div>
+  <div class="b-orb"></div>
+  <span class="b-label b-in">Breathe in</span>
+  <span class="b-label b-out">Breathe out</span>
+</div>
+
+<style>
+  .breathe {
+    position: relative;
+    width: min(70vw, 18rem);
+    aspect-ratio: 1;
+    margin-inline: auto;
+    display: grid;
+    place-items: center;
+  }
+  .b-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1.5px dashed rgb(125 145 128 / 0.5);
+    animation: b-turn 60s linear infinite;
+  }
+  .b-orb {
+    position: absolute;
+    inset: 12%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #f1ddd3 0%, #e2b9a6 45%, #c98b72 100%);
+    box-shadow: 0 20px 60px rgb(163 87 61 / 0.18);
+    animation: b-breathe 10s ease-in-out infinite;
+  }
+  .b-label {
+    position: relative;
+    font-family: var(--font-serif);
+    font-variation-settings: 'SOFT' 100;
+    font-size: 1.35rem;
+    color: var(--white);
+    text-shadow: 0 1px 8px rgb(138 70 48 / 0.35);
+    grid-area: 1 / 1;
+  }
+  .b-in { animation: b-in 10s ease-in-out infinite; }
+  .b-out { animation: b-out 10s ease-in-out infinite; }
+  @keyframes b-breathe {
+    0%, 100% { transform: scale(0.62); }
+    50% { transform: scale(1); }
+  }
+  @keyframes b-in {
+    0%, 42% { opacity: 1; }
+    50%, 92% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @keyframes b-out {
+    0%, 42% { opacity: 0; }
+    50%, 92% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  @keyframes b-turn {
+    to { transform: rotate(360deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .b-orb, .b-ring, .b-in, .b-out { animation: none; }
+    .b-orb { transform: scale(0.85); }
+    .b-out { opacity: 0; }
+  }
+</style>

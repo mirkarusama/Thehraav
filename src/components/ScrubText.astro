@@ -1,0 +1,70 @@
+---
+/**
+ * Words light up one by one as you scroll (the section stays pinned meanwhile).
+ * Each line is a string; the last line is highlighted.
+ */
+interface Props { lines: string[]; height?: string }
+const { lines, height = '260vh' } = Astro.props;
+let i = 0;
+const words = lines.map((l) => l.split(' ').map((w) => ({ w, i: i++ })));
+const n = i;
+---
+<section class="scrub" data-scrub="sticky" style={`--n:${n};height:${height}`}>
+  <div class="scrub-pin">
+    <p class="scrub-text">
+      {words.map((line, li) => (
+        <span class:list={['line', { last: li === words.length - 1 }]}>
+          {line.map(({ w, i }) => <span class="w" style={`--i:${i}`}>{w} </span>)}
+        </span>
+      ))}
+    </p>
+  </div>
+</section>
+
+<style>
+  .scrub {
+    position: relative;
+  }
+  .scrub-pin {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+    display: grid;
+    place-items: center;
+    padding-inline: var(--gutter);
+  }
+  .scrub-text {
+    max-width: 52rem;
+    margin: 0;
+    text-align: center;
+    font-family: var(--font-serif);
+    font-variation-settings: 'SOFT' 100;
+    font-weight: 420;
+    font-size: clamp(2rem, 6.4vw, 4.2rem);
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+    color: var(--sage-deep);
+  }
+  .line {
+    display: block;
+  }
+  .line + .line {
+    margin-top: 0.35em;
+  }
+  .line.last {
+    color: var(--terracotta);
+    font-style: italic;
+  }
+  .w {
+    /* each word goes from faint to full as --p passes its turn */
+    opacity: clamp(0.12, calc(var(--p, 1) * (var(--n) + 3) - var(--i) - 1), 1);
+    filter: blur(calc((1 - clamp(0, calc(var(--p, 1) * (var(--n) + 3) - var(--i) - 1), 1)) * 3px));
+    transition: opacity 0.35s linear, filter 0.35s linear;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .scrub { height: auto !important; }
+    .scrub-pin { position: static; height: auto; padding-block: var(--section); }
+    .w { opacity: 1; filter: none; }
+  }
+</style>

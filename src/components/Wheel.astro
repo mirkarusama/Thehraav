@@ -1,0 +1,71 @@
+---
+// The calm "wheel": soft ripple rings fixed behind every page.
+// It turns slowly as you scroll and breathes gently, tying the whole page together.
+---
+<div class="wheel" aria-hidden="true">
+  <svg viewBox="-300 -300 600 600" focusable="false">
+    <g class="w-breathe">
+      <circle class="w-ring r1" r="280" />
+      <circle class="w-ring r2" r="225" />
+      <circle class="w-ring r3" r="170" />
+      <circle class="w-ring r4" r="115" />
+      <circle class="w-core" r="34" />
+    </g>
+  </svg>
+</div>
+
+<style>
+  .wheel {
+    position: fixed;
+    z-index: 0;
+    top: 50%;
+    right: -26vmin;
+    width: 92vmin;
+    height: 92vmin;
+    transform: translateY(-50%);
+    pointer-events: none;
+    opacity: 0.55;
+  }
+  @media (max-width: 48rem) {
+    .wheel {
+      right: -45vmin;
+      width: 120vmin;
+      height: 120vmin;
+      opacity: 0.4;
+    }
+  }
+  .wheel svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .w-ring {
+    fill: none;
+    stroke: var(--sage);
+    transform-box: view-box;
+    transform-origin: 0 0;
+    will-change: transform;
+  }
+  /* Broken (dashed) rings so the turning is visible; alternate directions */
+  .r1 { stroke-width: 1; stroke-opacity: 0.35; stroke-dasharray: 2 10; transform: rotate(calc(var(--scroll, 0) * 140deg)); }
+  .r2 { stroke-width: 1.4; stroke-opacity: 0.45; stroke-dasharray: 420 120 60 120; transform: rotate(calc(var(--scroll, 0) * -220deg)); }
+  .r3 { stroke-width: 1.2; stroke-opacity: 0.4; stroke-dasharray: 1 7; transform: rotate(calc(var(--scroll, 0) * 260deg)); }
+  .r4 { stroke-width: 1.8; stroke-opacity: 0.5; stroke-dasharray: 260 80 40 80; transform: rotate(calc(var(--scroll, 0) * -320deg)); }
+  .w-core {
+    fill: var(--terracotta);
+    opacity: 0.16;
+  }
+  .w-breathe {
+    transform-box: view-box;
+    transform-origin: 0 0;
+    animation: w-breathe 10s ease-in-out infinite;
+  }
+  @keyframes w-breathe {
+    0%, 100% { transform: scale(0.97); }
+    50% { transform: scale(1.03); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .w-breathe { animation: none; }
+    .w-ring { transform: none !important; }
+  }
+</style>

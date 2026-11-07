@@ -178,7 +178,7 @@ ul {
   padding-block: var(--section);
 }
 .section--sand {
-  background: var(--sand);
+  background: rgb(239 230 218 / 0.72); /* lets the wheel show through softly */
 }
 .section--tight {
   padding-block: calc(var(--section) * 0.6);
@@ -311,5 +311,43 @@ ul {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+}
+
+/* ==========================================================
+   Calm motion
+   ========================================================== */
+:root {
+  --ease-calm: cubic-bezier(0.22, 0.61, 0.24, 1);
+}
+
+main,
+.site-footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Fade and drift in once. Only hidden when JS is running, so content never disappears without it. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  filter: blur(6px);
+  transition:
+    opacity 1.6s var(--ease-calm),
+    transform 1.6s var(--ease-calm),
+    filter 1.6s var(--ease-calm);
+  transition-delay: calc(var(--d, 0) * 140ms);
+}
+.js .reveal.in {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+    filter: none;
   }
 }
