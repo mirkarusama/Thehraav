@@ -17,7 +17,7 @@ Needs Node 22.23 or newer.
 
 | What | Where |
 |---|---|
-| Email, WhatsApp, social links, fees, session lengths, hours, Cal ID links, Formspree ID, site address | `src/config/site.ts` |
+| Email, WhatsApp, social links, fees, session lengths, hours, Cal ID links (+ `live` switch), Formspree ID, site address | `src/config/site.ts` |
 | Footer links and text | `src/config/site.ts` (`footer`) |
 | Page text | `src/pages/*.astro` (plain HTML inside) |
 | Colours and fonts | top of `src/styles/global.css` |
@@ -26,7 +26,7 @@ Needs Node 22.23 or newer.
 | Sarah's photo | `public/images/sarah-placeholder.webp` (or change `photo` in `site.ts`) |
 | Favicon / link-preview image | `public/favicon.svg`, `public/favicon-32.png`, `public/apple-touch-icon.png`, `public/og-image.png` |
 
-Values in `[SQUARE BRACKETS]` are placeholders. On the pages they show with a yellow highlight so they're easy to spot. Social links stay hidden until they're filled in.
+Values in `[SQUARE BRACKETS]` are placeholders. Recommended defaults (fee, lengths, hours, legal details) are filled in and should be confirmed with Sarah. On the pages they show with a yellow highlight so they're easy to spot. Social links stay hidden until they're filled in.
 
 ### Swapping in the final logo
 
@@ -38,8 +38,6 @@ Replace `public/assets/logo.svg` with the final file (same name), and that's it.
 
 Generated automatically: `sitemap-index.xml`, `robots.txt`, canonical URLs and Open Graph tags (from the site address in `site.ts`).
 
-## Guides
+## Setup guide
 
-- [Cal ID setup and embed](docs/cal-id-setup.md)
-- [Deploy to Railway and add a custom domain](docs/deploy-railway.md)
-- [Launch checklist and Google Business Profile](docs/launch-checklist.md)
+Open [`docs/setup-guide.html`](docs/setup-guide.html) in a browser. It covers editing, Railway deployment, Formspree, Cal ID + Razorpay, a custom domain, the launch checklist and Google Business Profile.

@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Thehraav Setup Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,100&family=Nunito+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  /* Layout: a quiet handbook — sticky contents rail on wide screens, one column of numbered stages on phones. */
+  :root {
+    --bg: #faf6f0;
+    --panel: #fffdf9;
+    --sand: #efe6da;
+    --line: #e2d6c6;
+    --fg: #2e2a26;
+    --fg-soft: #5a534c;
+    --head: #3f5444;
+    --sage: #7d9180;
+    --sage-tint: #dfe6dc;
+    --accent: #a3573d;
+    --accent-tint: #f2dfd7;
+    --warn-tint: #fbf0d2;
+    --code-bg: #f1ebe2;
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Nunito Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1c1f1c; --panel: #242825; --sand: #2a2e2a; --line: #3a403b;
+      --fg: #ece6dd; --fg-soft: #b7aea3; --head: #b9cdb9; --sage: #8fa592; --sage-tint: #2f3a31;
+      --accent: #e0937a; --accent-tint: #3d2a23; --warn-tint: #3a3322; --code-bg: #2c302c;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1c1f1c; --panel: #242825; --sand: #2a2e2a; --line: #3a403b;
+    --fg: #ece6dd; --fg-soft: #b7aea3; --head: #b9cdb9; --sage: #8fa592; --sage-tint: #2f3a31;
+    --accent: #e0937a; --accent-tint: #3d2a23; --warn-tint: #3a3322; --code-bg: #2c302c;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.65;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  a { color: var(--head); text-underline-offset: 0.2em; }
+  a:hover { color: var(--accent); }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100;
+    color: var(--head);
+    font-weight: 450;
+    line-height: 1.2;
+    text-wrap: balance;
+    margin: 0 0 0.5em;
+  }
+  h2 { font-size: clamp(1.6rem, 4vw, 2.1rem); }
+  h3 { font-size: 1.2rem; font-weight: 560; margin-top: 1.6em; }
+  p, li { max-width: 68ch; }
+  p { margin: 0 0 1em; }
+  ul, ol { padding-left: 1.3em; margin: 0 0 1em; }
+  li + li { margin-top: 0.3em; }
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.86em;
+    background: var(--code-bg);
+    padding: 0.08em 0.35em;
+    border-radius: 5px;
+    overflow-wrap: anywhere;
+  }
+  strong { font-weight: 800; }
+
+  .shell {
+    max-width: 74rem;
+    margin: 0 auto;
+    display: grid;
+    gap: 3rem;
+    padding-block: 2.5rem 5rem;
+  }
+  @media (min-width: 62rem) {
+    .shell { grid-template-columns: 15rem minmax(0, 1fr); }
+  }
+
+  /* Header */
+  .masthead { grid-column: 1 / -1; display: grid; gap: 1rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--line); }
+  .mark { display: flex; align-items: center; gap: 0.7rem; color: var(--fg-soft); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; }
+  .mark svg { width: 40px; height: 40px; flex: none; }
+  .masthead h1 { font-size: clamp(2.2rem, 7vw, 3.6rem); font-weight: 380; letter-spacing: -0.02em; margin: 0; }
+  .masthead p { color: var(--fg-soft); font-size: 1.1rem; margin: 0; }
+  .facts { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+  .fact { background: var(--sage-tint); color: var(--head); border-radius: 999px; padding: 0.25rem 0.85rem; font-size: 0.88rem; font-weight: 700; }
+
+  /* Contents rail */
+  nav.toc { font-size: 0.95rem; }
+  @media (min-width: 62rem) {
+    nav.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 1.5rem); align-self: start; max-height: calc(100vh - 3rem); overflow: auto; }
+  }
+  .toc h2 { font-family: var(--font-body); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-soft); font-weight: 800; }
+  .toc ol { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.15rem; }
+  .toc li + li { margin-top: 0; }
+  .toc a { display: flex; gap: 0.6rem; padding: 0.35rem 0.5rem; border-radius: 8px; text-decoration: none; color: var(--fg); }
+  .toc a span { color: var(--sage); font-family: var(--font-mono); font-size: 0.85em; min-width: 1.6em; padding-top: 0.1em; }
+  .toc a:hover, .toc a.active { background: var(--sand); color: var(--head); }
+  @media (max-width: 61.99rem) {
+    .toc ol { grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); }
+  }
+
+  /* Stages */
+  main { min-width: 0; display: grid; gap: 3.5rem; }
+  section.stage { scroll-margin-top: 1.5rem; min-width: 0; }
+  .stage-head { display: flex; align-items: baseline; gap: 0.9rem; margin-bottom: 0.8rem; }
+  .stage-num { font-family: var(--font-mono); color: var(--accent); font-size: 0.95rem; font-weight: 600; flex: none; }
+  .stage-head h2 { margin: 0; }
+  .lede { font-size: 1.08rem; color: var(--fg-soft); }
+
+  .steps { counter-reset: s; list-style: none; padding: 0; display: grid; gap: 0.9rem; }
+  .steps > li { counter-increment: s; position: relative; padding-left: 2.6rem; max-width: none; }
+  .steps > li + li { margin-top: 0; }
+  .steps > li::before {
+    content: counter(s);
+    position: absolute; left: 0; top: 0.1rem;
+    width: 1.8rem; height: 1.8rem; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--sage-tint); color: var(--head);
+    font-weight: 800; font-size: 0.85rem;
+  }
+  .path { font-weight: 700; color: var(--head); }
+
+  /* Code with copy */
+  .code { position: relative; margin: 0.6rem 0 1.1rem; min-width: 0; }
+  .code pre {
+    margin: 0; overflow-x: auto;
+    background: var(--code-bg); border: 1px solid var(--line); border-radius: 12px;
+    padding: 0.95rem 1rem; padding-right: 4.8rem;
+    font-family: var(--font-mono); font-size: 0.86rem; line-height: 1.6;
+  }
+  .code button {
+    position: absolute; top: 0.5rem; right: 0.5rem;
+    font: 700 0.78rem var(--font-body);
+    background: var(--panel); color: var(--head);
+    border: 1px solid var(--line); border-radius: 999px;
+    padding: 0.3rem 0.75rem; cursor: pointer;
+  }
+  .code button:hover { border-color: var(--sage); }
+
+  /* Notes */
+  .note { border-radius: 12px; padding: 0.9rem 1.1rem; margin: 1rem 0; background: var(--sage-tint); }
+  .note.warn { background: var(--warn-tint); }
+  .note.accent { background: var(--accent-tint); }
+  .note p:last-child, .note ul:last-child { margin-bottom: 0; }
+  .note strong:first-child { color: var(--head); }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 0.8rem 0 1.2rem; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
+  table { border-collapse: collapse; width: 100%; font-size: 0.93rem; }
+  th, td { text-align: left; padding: 0.65rem 0.9rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr:last-child td { border-bottom: 0; }
+  th { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-soft); background: var(--sand); }
+  td:first-child { white-space: nowrap; }
+
+  /* Two option cards */
+  .options { display: grid; gap: 1rem; margin: 1rem 0; }
+  @media (min-width: 46rem) { .options { grid-template-columns: 1fr 1fr; } }
+  .option { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 1.2rem 1.3rem; min-width: 0; }
+  .option h3 { margin-top: 0; }
+  .option .tag { display: inline-block; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; background: var(--accent-tint); color: var(--accent); border-radius: 999px; padding: 0.15rem 0.6rem; margin-bottom: 0.6rem; }
+
+  /* Checklist */
+  .check-group { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 1.1rem 1.2rem; margin-bottom: 1rem; }
+  .check-group h3 { margin-top: 0; }
+  .check-group ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.45rem; }
+  .check-group li + li { margin-top: 0; }
+  .check-group label { display: flex; gap: 0.7rem; align-items: flex-start; cursor: pointer; }
+  .check-group input { width: 1.15rem; height: 1.15rem; margin-top: 0.3rem; accent-color: var(--accent); flex: none; }
+  .check-group input:checked + span { color: var(--fg-soft); text-decoration: line-through; text-decoration-color: var(--sage); }
+  .progress { display: flex; align-items: center; gap: 0.8rem; margin: 0.4rem 0 1.2rem; font-weight: 700; color: var(--fg-soft); font-size: 0.92rem; }
+  .bar { flex: 1; height: 8px; background: var(--sand); border-radius: 999px; overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--sage), var(--accent)); transition: width 0.5s ease; }
+  .reset { font: 700 0.8rem var(--font-body); background: none; border: 1px solid var(--line); color: var(--fg-soft); border-radius: 999px; padding: 0.25rem 0.7rem; cursor: pointer; }
+
+  .tree { font-family: var(--font-mono); font-size: 0.84rem; }
+  footer.end { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: 1.5rem; color: var(--fg-soft); font-size: 0.9rem; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+  html { scroll-behavior: smooth; }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <header class="masthead">
+    <div class="mark">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="41" rx="28" ry="9" fill="none" stroke="#7D9180" stroke-width="2" stroke-opacity=".5"/><ellipse cx="32" cy="41" rx="16" ry="5" fill="none" stroke="#7D9180" stroke-width="2.4"/><circle cx="32" cy="24" r="6" fill="#A3573D"/></svg>
+      Thehraav Counselling · website handbook
+    </div>
+    <h1>From code to a live site</h1>
+    <p>Everything you need to understand, run and launch the Thehraav Counselling website. Follow the stages in order. Each one ends with something working.</p>
+    <div class="facts">
+      <span class="fact">Astro static site</span>
+      <span class="fact">Caddy on Railway</span>
+      <span class="fact">Cal ID + Razorpay</span>
+      <span class="fact">Formspree</span>
+      <span class="fact">No backend, no database</span>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="Contents">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#overview"><span>01</span>The website</a></li>
+      <li><a href="#defaults"><span>02</span>Decisions to confirm</a></li>
+      <li><a href="#accounts"><span>03</span>Accounts you need</a></li>
+      <li><a href="#github"><span>04</span>Code on GitHub</a></li>
+      <li><a href="#local"><span>05</span>Run it locally</a></li>
+      <li><a href="#edit"><span>06</span>Editing content</a></li>
+      <li><a href="#railway"><span>07</span>Deploy on Railway</a></li>
+      <li><a href="#formspree"><span>08</span>Contact form</a></li>
+      <li><a href="#calid"><span>09</span>Bookings (Cal ID)</a></li>
+      <li><a href="#domain"><span>10</span>Custom domain</a></li>
+      <li><a href="#launch"><span>11</span>Launch checklist</a></li>
+      <li><a href="#gbp"><span>12</span>Google Business Profile</a></li>
+      <li><a href="#help"><span>13</span>If something breaks</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <!-- 01 -->
+    <section class="stage" id="overview">
+      <div class="stage-head"><span class="stage-num">01</span><h2>The website</h2></div>
+      <p class="lede">A calm, mobile-first site where a woman dealing with anxiety or anger can feel understood, trust Sarah, and book a session in under two minutes.</p>
+
+      <h3>Pages</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Address</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td><code>/</code></td><td>Home. "Find your calm again", words that light up as you scroll, the meaning of ठहराव, a breathing circle, three steps, Sarah, and a closing call to book.</td></tr>
+          <tr><td><code>/about</code></td><td>Sarah's photo, short bio, CBT in plain words, qualifications, languages.</td></tr>
+          <tr><td><code>/services</code></td><td>Anxiety and anger support, fees, the free first session, the cancellation policy.</td></tr>
+          <tr><td><code>/book</code></td><td>Pick "First session" or "Individual session", and the Cal ID calendar opens inline.</td></tr>
+          <tr><td><code>/faq</code></td><td>Eight short answers, including emergencies and the forms sent after booking.</td></tr>
+          <tr><td><code>/contact</code></td><td>Email, WhatsApp button, and a three-field form (Formspree).</td></tr>
+          <tr><td><code>/privacy</code>, <code>/terms</code></td><td>Plain-language drafts written for India's DPDP Act. Have them reviewed before launch.</td></tr>
+          <tr><td><code>/404</code></td><td>A gentle "page not found".</td></tr>
+        </tbody>
+      </table></div>
+      <p>Also generated automatically: <code>sitemap-index.xml</code>, <code>robots.txt</code>, canonical links, Open Graph tags (for WhatsApp link previews) and the favicon.</p>
+
+      <h3>The calm motion</h3>
+      <ul>
+        <li><strong>The wheel.</strong> Soft ripple rings, from the logo mark, sit behind every page. They breathe slowly and turn as you scroll.</li>
+        <li><strong>Drift-in.</strong> Text and cards fade up gently, with a slight blur clearing, as they enter the screen.</li>
+        <li><strong>Words that light up</strong> one by one while a section stays pinned (on Home and About).</li>
+        <li><strong>Lines that draw</strong> between steps as you scroll, and a <strong>breathing circle</strong> (5 seconds in, 5 seconds out).</li>
+      </ul>
+      <p>All of this is CSS plus about 1 KB of plain JavaScript. Anyone with "reduce motion" switched on sees a still page, and all content shows even with JavaScript off.</p>
+
+      <h3>How the pieces fit</h3>
+      <p>The site is only static files. Railway builds them from GitHub and serves them with Caddy, a tiny web server. Bookings live in Cal ID, payments in Razorpay, and messages go through Formspree to Sarah's email. No client data is stored on the website itself.</p>
+
+      <h3>Folder structure</h3>
+      <div class="code"><pre class="tree">src/
+  config/site.ts        ← every value you'll edit (email, fees, links…)
+  components/           Header, Footer, Logo, BookingEmbed, Wheel, …
+  layouts/Base.astro    page shell, SEO tags
+  pages/                one file per page (plain HTML inside)
+  scripts/motion.ts     the calm scroll motion
+  styles/global.css     colours, fonts, buttons
+public/
+  assets/logo.svg       demo logo (the only logo file)
+  images/               Sarah's photo (placeholder for now)
+  favicon.svg, og-image.png, …
+Dockerfile, Caddyfile   how Railway builds and serves it</pre></div>
+    </section>
+
+    <!-- 02 -->
+    <section class="stage" id="defaults">
+      <div class="stage-head"><span class="stage-num">02</span><h2>Decisions to confirm</h2></div>
+      <p class="lede">Where the brief left something open, the site uses a recommended default. Confirm these with Sarah. Each one is a one-line change in <code>src/config/site.ts</code>.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Item</th><th>Set to</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Session fee</td><td>₹1,200</td><td>A mid-range fee for an M.A.-qualified counsellor working online in India.</td></tr>
+          <tr><td>Session length</td><td>50 minutes</td><td>The standard counselling hour, which leaves time for notes.</td></tr>
+          <tr><td>Free first session</td><td>20 minutes</td><td>A short intro call to see if it's a good fit, without giving away a full session.</td></tr>
+          <tr><td>Late-cancellation charge</td><td>Half the fee</td><td>Fair to Sarah and gentle on clients.</td></tr>
+          <tr><td>Working hours</td><td>Mon–Fri, 10 am–7 pm IST</td><td>Matches "likely Mon–Fri" in the brief.</td></tr>
+          <tr><td>Cal ID username / slugs</td><td><code>thehraav</code>, <code>free-first-session</code>, <code>individual-session</code></td><td>Short, clear links. Use these names when creating events, or change the config.</td></tr>
+          <tr><td>Video calls</td><td>Google Meet</td><td>Works in a browser with no install. Zoom also works.</td></tr>
+          <tr><td>Consent / intake forms</td><td>Google Forms</td><td>Free, and owned by Sarah's Google account.</td></tr>
+          <tr><td>Data kept for</td><td>3 years after the last session</td><td>A common professional record-keeping period. Check with a lawyer.</td></tr>
+          <tr><td>Reply to data requests</td><td>Within 30 days</td><td>A reasonable window under the DPDP Act.</td></tr>
+          <tr><td>Minimum age</td><td>18</td><td>Counselling minors needs parental consent, which this site doesn't handle.</td></tr>
+          <tr><td>Legal jurisdiction</td><td>Mumbai, India</td><td>Change this if Sarah's practice is based elsewhere.</td></tr>
+          <tr><td>If Sarah cancels</td><td>New time or full refund</td><td>The standard fair approach (in Terms).</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note warn"><p><strong>Still needed (no guess possible):</strong> WhatsApp number, Instagram / LinkedIn links (hidden until added), Formspree form ID, Sarah's photo, final logo, and a lawyer's review of Privacy and Terms.</p></div>
+    </section>
+
+    <!-- 03 -->
+    <section class="stage" id="accounts">
+      <div class="stage-head"><span class="stage-num">03</span><h2>Accounts you need</h2></div>
+      <p class="lede">Create these first. Use Sarah's email where she'll own the account.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Service</th><th>Used for</th><th>Who owns it</th><th>Cost</th></tr></thead>
+        <tbody>
+          <tr><td>GitHub</td><td>Holds the code (<code>mirkarusama/Thehraav</code>)</td><td>You</td><td>Free</td></tr>
+          <tr><td>Railway</td><td>Builds and hosts the site</td><td>You (or Sarah)</td><td>Hobby plan</td></tr>
+          <tr><td>Cal ID (cal.id)</td><td>Booking calendar, reminders</td><td>Sarah</td><td>Free tier to start</td></tr>
+          <tr><td>Razorpay</td><td>Payments at booking</td><td>Sarah (KYC needed)</td><td>Per-payment fee</td></tr>
+          <tr><td>Formspree</td><td>Contact form → email</td><td>Sarah</td><td>Free (50 messages/month)</td></tr>
+          <tr><td>Google account</td><td>Calendar, Meet, Forms, Business Profile</td><td>Sarah</td><td>Free</td></tr>
+        </tbody>
+      </table></div>
+      <p>Razorpay activation (KYC) can take a few days, so start it early.</p>
+    </section>
+
+    <!-- 04 -->
+    <section class="stage" id="github">
+      <div class="stage-head"><span class="stage-num">04</span><h2>Code on GitHub</h2></div>
+      <p class="lede">The repo <code>mirkarusama/Thehraav</code> is empty for now. Pick one of these two ways to fill it.</p>
+      <div class="options">
+        <div class="option">
+          <span class="tag">Easiest</span>
+          <h3>Let Claude push it</h3>
+          <ol>
+            <li>Install the Claude GitHub App on the repo: <a href="https://github.com/apps/claude/installations/select_target" target="_blank" rel="noopener">github.com/apps/claude</a>. Choose "Only select repositories" and pick <strong>Thehraav</strong>.</li>
+            <li>Tell Claude in the project thread that it's done. The code goes to <code>main</code>.</li>
+          </ol>
+        </div>
+        <div class="option">
+          <span class="tag">Do it yourself</span>
+          <h3>Push the zip</h3>
+          <p>Download <code>thehraav-site.zip</code> from the project files. It includes the full git history. Then run:</p>
+          <div class="code"><pre>unzip thehraav-site.zip
+cd thehraav
+git remote set-url origin https://github.com/mirkarusama/Thehraav.git
+git push -u origin main</pre><button type="button" data-copy>Copy</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 -->
+    <section class="stage" id="local">
+      <div class="stage-head"><span class="stage-num">05</span><h2>Run it locally</h2></div>
+      <p class="lede">You need Node 22.23 or newer.</p>
+      <div class="code"><pre>npm install
+npm run dev        # http://localhost:4321 with live reload
+npm run build      # builds the static site into dist/
+npm run preview    # serves the built site</pre><button type="button" data-copy>Copy</button></div>
+      <p>Optional, if you have Docker and want to test exactly what Railway runs:</p>
+      <div class="code"><pre>docker build -t thehraav .
+docker run --rm -p 8080:8080 thehraav    # http://localhost:8080</pre><button type="button" data-copy>Copy</button></div>
+    </section>
+
+    <!-- 06 -->
+    <section class="stage" id="edit">
+      <div class="stage-head"><span class="stage-num">06</span><h2>Editing content</h2></div>
+      <p class="lede">Almost everything you'll change lives in one file, <code>src/config/site.ts</code>. Change a value, push, and Railway redeploys.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>To change</th><th>Edit</th></tr></thead>
+        <tbody>
+          <tr><td>Email, WhatsApp, socials</td><td><code>site.contact</code>, <code>site.social</code>. WhatsApp is digits only, with country code, e.g. <code>919876543210</code></td></tr>
+          <tr><td>Fee, lengths, hours</td><td><code>site.sessions</code></td></tr>
+          <tr><td>Booking links, switch booking on</td><td><code>site.booking</code> (set <code>live: true</code> once Cal ID is ready)</td></tr>
+          <tr><td>Contact form</td><td><code>site.formspreeId</code></td></tr>
+          <tr><td>Footer links and text</td><td><code>footer</code> in the same file</td></tr>
+          <tr><td>Site address</td><td><code>site.url</code>, or a <code>SITE_URL</code> variable on Railway</td></tr>
+          <tr><td>Legal details</td><td><code>site.legalDetails</code>, <code>legalUpdated</code>, <code>legalDraft</code></td></tr>
+          <tr><td>Page wording</td><td><code>src/pages/*.astro</code> (plain HTML)</td></tr>
+          <tr><td>Cancellation wording</td><td><code>src/components/CancellationPolicy.astro</code> (used on 4 pages)</td></tr>
+          <tr><td>Colours and fonts</td><td>Top of <code>src/styles/global.css</code></td></tr>
+        </tbody>
+      </table></div>
+      <p>Any value still in <code>[SQUARE BRACKETS]</code> shows on the page with a yellow highlight, so it's easy to spot. Social links stay hidden until they're filled in.</p>
+
+      <h3>Swapping the logo and photo</h3>
+      <ul>
+        <li><strong>Logo:</strong> replace <code>public/assets/logo.svg</code> with the final file, keeping the same name. It sits in a fixed-size box, so nothing shifts. For a PNG, add it to <code>public/assets/</code> and change <code>logo.src</code> in <code>site.ts</code>. Then replace <code>favicon.svg</code>, <code>favicon-32.png</code>, <code>apple-touch-icon.png</code> and <code>og-image.png</code> (1200×630) with versions of the new mark.</li>
+        <li><strong>Photo:</strong> save Sarah's photo as WebP, about 640×800 (portrait, 4:5), at <code>public/images/sarah-placeholder.webp</code>, or change <code>psychologist.photo</code>. It's cropped into an arch shape automatically.</li>
+      </ul>
+    </section>
+
+    <!-- 07 -->
+    <section class="stage" id="railway">
+      <div class="stage-head"><span class="stage-num">07</span><h2>Deploy on Railway</h2></div>
+      <p class="lede">Railway finds the <code>Dockerfile</code> and does everything else. Node builds the site, then Caddy serves it using about 15–20 MB of RAM, with no Node process running.</p>
+      <ol class="steps">
+        <li>Sign in at <a href="https://railway.com" target="_blank" rel="noopener">railway.com</a> with GitHub, and choose the <strong>Hobby</strong> plan.</li>
+        <li>Click <span class="path">New Project → Deploy from GitHub repo</span>. The first time, allow Railway's GitHub app to see <strong>Thehraav</strong>.</li>
+        <li>Pick <strong>mirkarusama/Thehraav</strong>. Railway detects the Dockerfile and starts building. Leave the start command and port empty, because Caddy listens on Railway's <code>$PORT</code> automatically.</li>
+        <li>Wait for the deploy to turn green (the first build takes about 1–2 minutes).</li>
+        <li>Open the service, go to <span class="path">Settings → Networking → Generate Domain</span>, and choose the name <code>thehraav</code> if it's free. You get <code>https://thehraav.up.railway.app</code> with HTTPS already on.</li>
+        <li>If the address is different, go to <span class="path">Variables → New Variable</span> and add <code>SITE_URL</code> = your address (e.g. <code>https://thehraav-production.up.railway.app</code>), then redeploy. This keeps canonical links, the sitemap and WhatsApp previews correct.</li>
+        <li>Open the site and click through every page. From now on, every push to <code>main</code> redeploys automatically.</li>
+      </ol>
+      <div class="note">
+        <p><strong>Keeping usage low on Hobby.</strong> It's one small service with no database and no volumes. Optionally, under <span class="path">Settings → Deploy</span> you can set a memory limit around 128 MB. Railway's Serverless setting (app sleeping) cuts usage further, but the first visit after a quiet spell is a second or two slower. For a site people find when they're struggling, leaving it off is kinder.</p>
+      </div>
+    </section>
+
+    <!-- 08 -->
+    <section class="stage" id="formspree">
+      <div class="stage-head"><span class="stage-num">08</span><h2>Contact form (Formspree)</h2></div>
+      <p class="lede">The form's button stays disabled until a form ID is added, so nothing can be lost by accident.</p>
+      <ol class="steps">
+        <li>Sign up at <a href="https://formspree.io" target="_blank" rel="noopener">formspree.io</a> with <code>thehraavcounselling@outlook.com</code> and verify the email.</li>
+        <li>Create a new form called "Thehraav website". Copy the ID from its endpoint: <code>https://formspree.io/f/<strong>xyzabcd</strong></code>.</li>
+        <li>Put it in <code>site.ts</code>: <code>formspreeId: 'xyzabcd'</code>. Push the change.</li>
+        <li>In Formspree form settings, add the live domain under allowed domains (this stops spam from other sites).</li>
+        <li>Send a test message from the live site. Check that it arrives, including in spam.</li>
+      </ol>
+      <p>The form sends name, email and message only. It has a hidden spam trap and works even if JavaScript fails.</p>
+    </section>
+
+    <!-- 09 -->
+    <section class="stage" id="calid">
+      <div class="stage-head"><span class="stage-num">09</span><h2>Bookings (Cal ID + Razorpay)</h2></div>
+      <p class="lede">All of this happens in Sarah's Cal ID account. The website only shows the calendar. Until you switch it on, the Book page shows a friendly "coming soon" note that points to Contact.</p>
+      <div class="note warn"><p><strong>Labels may differ.</strong> Cal ID is a fork of Cal.com. Menu names below follow Cal.com and Cal ID's help pages, so if a label is slightly different, look for the closest match.</p></div>
+
+      <h3>A. Account, calendar and video</h3>
+      <ol class="steps">
+        <li>Sign up at <a href="https://cal.id" target="_blank" rel="noopener">cal.id</a> with Sarah's Google account. Choose the username <code>thehraav</code>.</li>
+        <li><span class="path">Settings → Calendars</span>: connect Google Calendar, and turn on <strong>check for conflicts</strong> so busy times are hidden. Make it the calendar that new bookings are added to.</li>
+        <li><span class="path">Availability</span>: Monday to Friday, 10:00–19:00, time zone <strong>Asia/Kolkata</strong>. Don't add breaks or daily limits.</li>
+        <li><span class="path">Apps → Google Meet → Install</span>. Each booking then gets its own Meet link.</li>
+      </ol>
+
+      <h3>B. Razorpay</h3>
+      <ol class="steps">
+        <li>Activate Sarah's Razorpay account (KYC) at razorpay.com.</li>
+        <li>In Cal ID: <span class="path">App store → search "Razorpay" → Install</span>, log in to Razorpay and authorise Cal ID (<a href="https://help.onehash.ai/en/article/cal-id-and-razorpay-integration-1pfxx34" target="_blank" rel="noopener">Cal ID's guide</a>).</li>
+      </ol>
+
+      <h3>C. Two event types</h3>
+      <div class="options">
+        <div class="option">
+          <h3>First session (free)</h3>
+          <ul>
+            <li>Title: <strong>Free first session</strong></li>
+            <li>Slug: <code>free-first-session</code></li>
+            <li>Duration: 20 minutes</li>
+            <li>Location: Google Meet</li>
+            <li>No Razorpay</li>
+            <li>Description: "A relaxed first conversation for new clients. Talk, ask questions, and see if we're a good fit."</li>
+          </ul>
+        </div>
+        <div class="option">
+          <h3>Individual session (paid)</h3>
+          <ul>
+            <li>Title: <strong>Individual session</strong></li>
+            <li>Slug: <code>individual-session</code></li>
+            <li>Duration: 50 minutes</li>
+            <li>Location: Google Meet</li>
+            <li><span class="path">Apps tab → Razorpay</span>: ₹1,200, INR</li>
+            <li>Description: include the cancellation policy (below)</li>
+          </ul>
+        </div>
+      </div>
+      <p><strong>Cancellation policy text</strong> (paste into both event descriptions):</p>
+      <div class="code"><pre>Please give at least 24 hours' notice to cancel or reschedule, using the link in your confirmation email. Late cancellations or missed sessions may be charged at half the session fee.</pre><button type="button" data-copy>Copy</button></div>
+      <p>For both events, open <span class="path">Limits</span> and set minimum booking notice to 24 hours. If Cal ID offers a minimum notice for cancelling or rescheduling, set that to 24 hours too. If not, the policy is shown everywhere and Sarah handles late cancellations by hand. Cal ID can't check whether someone is a "new client", so Sarah can cancel repeat free bookings.</p>
+
+      <h3>D. Three gentle booking questions</h3>
+      <p>In each event: <span class="path">Advanced → Booking questions → Add a question</span>. Name and email are already there.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Question</th><th>Type</th><th>Required</th></tr></thead>
+        <tbody>
+          <tr><td>What would you like some help with? (A few words is fine)</td><td>Long text</td><td>No</td></tr>
+          <tr><td>Which language would you prefer?</td><td>Radio: English · Hindi · Either is fine</td><td>No</td></tr>
+          <tr><td>Have you had counselling or therapy before?</td><td>Radio: Yes · No · Prefer not to say</td><td>No</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>E. Confirmation email with forms, and reminders</h3>
+      <ol class="steps">
+        <li>Sarah makes two Google Forms in her account: <strong>Consent form</strong> and <strong>Intake form</strong>. Copy both share links.</li>
+        <li><span class="path">Workflows → New</span>, trigger <strong>When new event is booked</strong>, action <strong>Send email to attendee</strong>, for both events:
+          <div class="code"><pre>Hi {ATTENDEE_NAME}, thank you for booking.
+
+Before our first session, please fill in these two short forms:
+Consent form: [link]
+Intake form: [link]
+
+Your video link is in your confirmation email.
+Warmly, Sarah</pre><button type="button" data-copy>Copy</button></div>
+        </li>
+        <li>A second workflow: trigger <strong>Before event starts</strong>, 24 hours, <strong>Send email to attendee</strong> as a reminder. You can add another for 1 hour before.</li>
+        <li>If Workflows isn't available on her plan, paste the two form links into each event's description instead. They then appear in the confirmation email.</li>
+      </ol>
+
+      <h3>F. Switch booking on in the website</h3>
+      <div class="code"><pre>// src/config/site.ts
+booking: {
+  base: 'https://cal.id',
+  live: true,                                   // ← turn on
+  freeEvent: 'thehraav/free-first-session',
+  regularEvent: 'thehraav/individual-session',
+},</pre><button type="button" data-copy>Copy</button></div>
+      <p>Push, wait for the redeploy, then open <code>/book</code> and click each card. The Cal ID calendar should load inside the page. Every "Book" button on the site leads here, and <code>/book#free</code> or <code>/book#regular</code> opens that event directly.</p>
+      <div class="note accent">
+        <p><strong>If the calendar stays blank</strong> (Cal ID may block plain embedding): in Cal ID open <span class="path">Event → Embed → Inline → Get Code</span>, copy the snippet, and send it to Claude in the project thread. The <code>BookingEmbed</code> component switches to Cal ID's official embed script (<code>cal.id/embed-link/embed.js</code>), which is a small change. Visitors always see an "open in a new tab" link as a backup, so bookings still work in the meantime.</p>
+      </div>
+      <p><strong>Fallback plan:</strong> if Cal ID doesn't work out, use Cal.com (free) for scheduling, plus a Razorpay Payment Page link in the paid event's confirmation. The trade-off is that payment isn't enforced at booking, so Sarah checks it by hand.</p>
+    </section>
+
+    <!-- 10 -->
+    <section class="stage" id="domain">
+      <div class="stage-head"><span class="stage-num">10</span><h2>Custom domain, later</h2></div>
+      <ol class="steps">
+        <li>Buy the domain (e.g. <code>thehraav.com</code>) from any registrar.</li>
+        <li>Railway: <span class="path">Settings → Networking → Custom Domain</span>, add <code>thehraav.com</code> and <code>www.thehraav.com</code>. Railway shows a DNS record for each.</li>
+        <li>At the registrar, add those records: a CNAME for <code>www</code>, and an ALIAS / ANAME / flattened CNAME for the root (Cloudflare DNS handles this well). Wait for Railway to show it as verified. HTTPS is automatic.</li>
+        <li>Railway <span class="path">Variables</span>: set <code>SITE_URL=https://thehraav.com</code>, then redeploy.</li>
+        <li>Redirect one form to the other (usually <code>www</code> → root) at the registrar or DNS provider.</li>
+        <li>When <code>hello@thehraav.com</code> is ready, change <code>contact.email</code> in <code>site.ts</code>. Also update it in Cal ID, Formspree and Google Business Profile.</li>
+        <li>Update the website link in Google Business Profile, Search Console, Cal ID and social profiles.</li>
+      </ol>
+    </section>
+
+    <!-- 11 -->
+    <section class="stage" id="launch">
+      <div class="stage-head"><span class="stage-num">11</span><h2>Launch checklist</h2></div>
+      <p class="lede">Tick as you go. Your ticks are saved in this browser only.</p>
+      <div class="progress"><div class="bar"><i id="bar"></i></div><span id="count">0 of 0</span><button type="button" class="reset" id="reset">Clear ticks</button></div>
+
+      <div class="check-group">
+        <h3>Content</h3>
+        <ul>
+          <li><label><input type="checkbox" id="c-defaults"><span>Sarah confirmed fee, lengths, late-cancel charge and hours (stage 02)</span></label></li>
+          <li><label><input type="checkbox" id="c-wa"><span>WhatsApp number added; the button opens a chat on a phone</span></label></li>
+          <li><label><input type="checkbox" id="c-social"><span>Social links added, or left hidden on purpose</span></label></li>
+          <li><label><input type="checkbox" id="c-photo"><span>Sarah's photo in place</span></label></li>
+          <li><label><input type="checkbox" id="c-legal"><span>Privacy and Terms reviewed; <code>legalDraft: false</code></span></label></li>
+          <li><label><input type="checkbox" id="c-ph"><span>No yellow placeholders left on any page</span></label></li>
+        </ul>
+      </div>
+      <div class="check-group">
+        <h3>Bookings and payments</h3>
+        <ul>
+          <li><label><input type="checkbox" id="b-free"><span>Test free booking: confirmation email, Meet link, form links, event in Sarah's calendar</span></label></li>
+          <li><label><input type="checkbox" id="b-paid"><span>Test paid booking at ₹1, payment succeeds, then refund it and set the price back to ₹1,200</span></label></li>
+          <li><label><input type="checkbox" id="b-move"><span>Reschedule and cancel work from the email links</span></label></li>
+          <li><label><input type="checkbox" id="b-busy"><span>Busy times in Sarah's calendar are hidden</span></label></li>
+          <li><label><input type="checkbox" id="b-remind"><span>Reminder email arrives (book a test slot for tomorrow)</span></label></li>
+        </ul>
+      </div>
+      <div class="check-group">
+        <h3>Website</h3>
+        <ul>
+          <li><label><input type="checkbox" id="w-form"><span>Contact form test message received</span></label></li>
+          <li><label><input type="checkbox" id="w-mobile"><span>Every page checked on a real Android and iPhone</span></label></li>
+          <li><label><input type="checkbox" id="w-keys"><span>Keyboard only: Tab through each page, focus always visible</span></label></li>
+          <li><label><input type="checkbox" id="w-preview"><span>Site link pasted in WhatsApp shows the logo preview</span></label></li>
+          <li><label><input type="checkbox" id="w-speed"><span>PageSpeed Insights (pagespeed.web.dev) on mobile: 90+</span></label></li>
+          <li><label><input type="checkbox" id="w-seo"><span><code>/sitemap-index.xml</code> and <code>/robots.txt</code> load; an unknown URL shows the 404 page</span></label></li>
+          <li><label><input type="checkbox" id="w-gsc"><span>Google Search Console set up and sitemap submitted</span></label></li>
+          <li><label><input type="checkbox" id="w-gbp"><span>Google Business Profile live (stage 12)</span></label></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 12 -->
+    <section class="stage" id="gbp">
+      <div class="stage-head"><span class="stage-num">12</span><h2>Google Business Profile</h2></div>
+      <ol class="steps">
+        <li>Go to <a href="https://business.google.com" target="_blank" rel="noopener">business.google.com</a> and sign in with Sarah's Google account.</li>
+        <li>Business name: <strong>Thehraav Counselling</strong>. Primary category: <strong>Counselor</strong>.</li>
+        <li>"Add a location customers can visit?" Choose <strong>No</strong>, since sessions are online only and no address should be shown.</li>
+        <li>Service area: Sarah's city (e.g. Mumbai) and wider regions, or India.</li>
+        <li>Phone (the WhatsApp number) and website: <code>https://thehraav.up.railway.app</code>.</li>
+        <li>Verify the business with whatever method Google offers (often a short video or a phone code).</li>
+        <li>Then add:
+          <ul>
+            <li><strong>Description:</strong> "Online counselling for women who feel overwhelmed by anxiety or anger, with Sarah Shaikh, counselling psychologist (M.A., Mumbai University; Diploma in CBT). Warm, practical, CBT-based sessions in English and Hindi. Free first session for new clients."</li>
+            <li><strong>Services:</strong> Online counselling, Anxiety counselling, Anger management counselling, Free first session</li>
+            <li><strong>Attributes:</strong> Online appointments, Online care</li>
+            <li><strong>Hours:</strong> Mon–Fri, 10 am–7 pm</li>
+            <li><strong>Appointment link:</strong> <code>https://thehraav.up.railway.app/book</code></li>
+            <li><strong>Photos:</strong> logo, a calm cover image, and Sarah's photo</li>
+          </ul>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 13 -->
+    <section class="stage" id="help">
+      <div class="stage-head"><span class="stage-num">13</span><h2>If something breaks</h2></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>What you see</th><th>What to do</th></tr></thead>
+        <tbody>
+          <tr><td>Railway build fails at <code>npm ci</code></td><td>Make sure <code>package-lock.json</code> is committed, then redeploy.</td></tr>
+          <tr><td>"Application failed to respond"</td><td>Check that no custom port or start command is set on the service. Caddy uses <code>$PORT</code> by itself.</td></tr>
+          <tr><td>Link previews show the wrong address</td><td>Set <code>SITE_URL</code> on Railway and redeploy.</td></tr>
+          <tr><td>Book page says "coming soon"</td><td><code>booking.live</code> is still <code>false</code>.</td></tr>
+          <tr><td>Calendar area is blank</td><td>See the note at the end of stage 09F.</td></tr>
+          <tr><td>Form button is greyed out</td><td><code>formspreeId</code> is still a placeholder.</td></tr>
+          <tr><td>Form says "something went wrong"</td><td>The live domain is missing from Formspree's allowed domains, or the form ID is wrong.</td></tr>
+          <tr><td>A change doesn't show</td><td>Hard-refresh. HTML is cached for up to an hour.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+  </main>
+
+  <footer class="end">
+    Built for Thehraav Counselling. The site is a static Astro build, so there's nothing to patch or back up apart from the GitHub repo.
+  </footer>
+</div>
+
+<script>
+  // Copy buttons
+  document.querySelectorAll('[data-copy]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const pre = btn.parentElement.querySelector('pre');
+      const text = pre.innerText;
+      const done = () => { btn.textContent = 'Copied'; setTimeout(() => (btn.textContent = 'Copy'), 1600); };
+      const fallback = () => {
+        const r = document.createRange(); r.selectNodeContents(pre);
+        const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+        btn.textContent = 'Selected';
+        setTimeout(() => (btn.textContent = 'Copy'), 1600);
+      };
+      try { navigator.clipboard.writeText(text).then(done, fallback); } catch (e) { fallback(); }
+    });
+  });
+
+  // Checklist with saved ticks
+  const KEY = 'thehraav-launch-checks';
+  const boxes = Array.from(document.querySelectorAll('.check-group input[type=checkbox]'));
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+  const render = () => {
+    const done = boxes.filter((b) => b.checked).length;
+    document.getElementById('count').textContent = done + ' of ' + boxes.length;
+    document.getElementById('bar').style.width = (100 * done / boxes.length) + '%';
+  };
+  boxes.forEach((b) => {
+    b.checked = !!saved[b.id];
+    b.addEventListener('change', () => {
+      saved[b.id] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+      render();
+    });
+  });
+  document.getElementById('reset').addEventListener('click', () => {
+    boxes.forEach((b) => (b.checked = false)); saved = {};
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    render();
+  });
+  render();
+
+  // Highlight the current stage in the contents
+  const links = Array.from(document.querySelectorAll('.toc a'));
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          links.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    document.querySelectorAll('section.stage').forEach((s) => io.observe(s));
+  }
+</script>
+</body>
+</html>
