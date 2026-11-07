@@ -1,0 +1,24 @@
+---
+// The only place the logo image is rendered. The file path lives in src/config/site.ts.
+import { site } from '../config/site';
+interface Props { class?: string }
+const { class: cls = '' } = Astro.props;
+---
+<span class={`logo-box ${cls}`}>
+  <img src={site.logo.src} alt={site.logo.alt} width="231" height="64" decoding="async" />
+</span>
+
+<style>
+  .logo-box {
+    display: inline-block;
+    width: var(--logo-w);
+    height: var(--logo-h);
+    flex: none;
+  }
+  .logo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: left center;
+  }
+</style>

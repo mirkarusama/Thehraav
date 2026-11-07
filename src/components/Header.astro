@@ -1,0 +1,172 @@
+---
+import Logo from './Logo.astro';
+import BookButton from './BookButton.astro';
+import { nav } from '../config/site';
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+<header class="site-header">
+  <div class="container bar">
+    <a href="/" class="home-link" aria-label="Thehraav Counselling, home">
+      <Logo />
+    </a>
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span class="menu-icon" aria-hidden="true"></span>
+      <span class="menu-label">Menu</span>
+    </button>
+
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul>
+        {nav.map((item) => (
+          <li>
+            <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+      <BookButton small />
+    </nav>
+  </div>
+</header>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const navEl = document.getElementById('site-nav');
+  if (btn && navEl) {
+    document.documentElement.classList.add('js');
+    const set = (open: boolean) => {
+      btn.setAttribute('aria-expanded', String(open));
+      navEl.classList.toggle('open', open);
+    };
+    btn.addEventListener('click', () => set(btn.getAttribute('aria-expanded') !== 'true'));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navEl.classList.contains('open')) {
+        set(false);
+        btn.focus();
+      }
+    });
+  }
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgb(250 246 240 / 0.92);
+    backdrop-filter: saturate(1.2) blur(10px);
+    -webkit-backdrop-filter: saturate(1.2) blur(10px);
+    border-bottom: 1px solid rgb(228 215 198 / 0.7);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 4.5rem;
+    flex-wrap: wrap;
+  }
+  .home-link {
+    display: inline-flex;
+    padding-block: 0.6rem;
+  }
+  .menu-toggle {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0.4rem 0.9rem;
+    border: 1.5px solid var(--sand-deep);
+    border-radius: 999px;
+    background: var(--white);
+    color: var(--sage-deep);
+    font: inherit;
+    font-weight: 700;
+    font-size: 0.98rem;
+    cursor: pointer;
+  }
+  .menu-icon,
+  .menu-icon::before,
+  .menu-icon::after {
+    display: block;
+    width: 18px;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transition: transform 0.25s, opacity 0.25s;
+  }
+  .menu-icon {
+    position: relative;
+  }
+  .menu-icon::before,
+  .menu-icon::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+  .menu-icon::before { top: -6px; }
+  .menu-icon::after { top: 6px; }
+  [aria-expanded='true'] .menu-icon { background: transparent; }
+  [aria-expanded='true'] .menu-icon::before { transform: translateY(6px) rotate(45deg); }
+  [aria-expanded='true'] .menu-icon::after { transform: translateY(-6px) rotate(-45deg); }
+
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+  }
+  .site-nav ul {
+    display: flex;
+    gap: 1.4rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .site-nav ul a {
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    padding-block: 0.4rem;
+    border-bottom: 2px solid transparent;
+  }
+  .site-nav ul a:hover {
+    color: var(--sage-deep);
+    border-bottom-color: var(--sage);
+  }
+  .site-nav ul a[aria-current='page'] {
+    color: var(--sage-deep);
+    border-bottom-color: var(--terracotta);
+  }
+
+  /* Mobile: collapsible menu (only collapses when JS is available) */
+  @media (max-width: 55rem) {
+    :global(.js) .menu-toggle {
+      display: inline-flex;
+    }
+    .site-nav {
+      flex-basis: 100%;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1rem;
+      padding-bottom: 1.2rem;
+    }
+    :global(.js) .site-nav:not(.open) {
+      display: none;
+    }
+    .site-nav ul {
+      flex-direction: column;
+      gap: 0;
+    }
+    .site-nav ul a {
+      display: block;
+      padding: 0.8rem 0.2rem;
+      border-bottom: 1px solid var(--sand-deep);
+      font-size: 1.1rem;
+    }
+    .site-nav ul a[aria-current='page'] {
+      border-bottom-color: var(--sand-deep);
+      box-shadow: inset 3px 0 0 var(--terracotta);
+      padding-left: 0.9rem;
+    }
+  }
+</style>

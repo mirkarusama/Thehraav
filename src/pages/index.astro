@@ -1,0 +1,258 @@
+---
+import Base from '../layouts/Base.astro';
+import BookButton from '../components/BookButton.astro';
+import StillWater from '../components/StillWater.astro';
+import { site } from '../config/site';
+const p = site.psychologist;
+---
+<Base
+  fullTitle
+  title="Online counselling for women: anxiety and anger | Thehraav Counselling"
+  description="Warm, practical, CBT-based online counselling for women who feel overwhelmed by anxiety or anger. Sessions in English and Hindi with Sarah Shaikh. Your first session is free."
+>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <p class="eyebrow">Online counselling for women · English &amp; Hindi</p>
+        <h1>When anxiety or anger feels like too much, you deserve a place to pause.</h1>
+        <p class="lead">
+          I'm Sarah, a counselling psychologist. I help women understand what's going on inside and find calmer,
+          steadier ways to respond, with practical tools and no judgement.
+        </p>
+        <div class="btn-row">
+          <BookButton />
+          <a href="#how-it-works" class="btn btn--ghost">How it works</a>
+        </div>
+        <p class="free-note small">Your first session is free for new clients.</p>
+        <p class="creds small muted">M.A. Counselling Psychology (Mumbai University) · Diploma in CBT</p>
+      </div>
+      <div class="hero-art">
+        <StillWater />
+      </div>
+    </div>
+  </section>
+
+  <!-- Feeling understood -->
+  <section class="section section--sand">
+    <div class="container narrow center">
+      <h2>Does any of this feel familiar?</h2>
+    </div>
+    <div class="container">
+      <ul class="familiar">
+        <li class="card">Your mind races and won't switch off, even when you're tired.</li>
+        <li class="card">Small things set off big anger, and you feel guilty afterwards.</li>
+        <li class="card">You're always on edge, holding everything together for everyone else.</li>
+        <li class="card">You miss feeling like yourself: calm, clear and in control.</li>
+      </ul>
+      <p class="center lead reassure">
+        You're not too much, and you're not alone. These feelings are common, and with the right support, they can change.
+      </p>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section" id="how-it-works">
+    <div class="container">
+      <div class="narrow center">
+        <h2>How it works</h2>
+        <p class="lead">Three simple steps. You can start whenever you're ready.</p>
+      </div>
+      <ol class="steps">
+        <li>
+          <span class="step-num" aria-hidden="true">1</span>
+          <h3>Book</h3>
+          <p>Choose a time that suits you. It takes about two minutes, and your first session is free.</p>
+        </li>
+        <li>
+          <span class="step-num" aria-hidden="true">2</span>
+          <h3>Meet online</h3>
+          <p>We talk over a private video call, in English or Hindi, from wherever you feel comfortable.</p>
+        </li>
+        <li>
+          <span class="step-num" aria-hidden="true">3</span>
+          <h3>Feel steadier</h3>
+          <p>Together we understand what's driving the overwhelm, and practise tools you can use in everyday life.</p>
+        </li>
+      </ol>
+      <div class="center">
+        <BookButton label="Book your free first session" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Meet Sarah -->
+  <section class="section section--sand">
+    <div class="container meet">
+      <img
+        class="meet-photo"
+        src={p.photo}
+        alt={p.photoAlt}
+        width="640"
+        height="800"
+        loading="lazy"
+        decoding="async"
+      />
+      <div>
+        <p class="eyebrow">Meet your counsellor</p>
+        <h2>Hi, I'm {p.name}.</h2>
+        <p>
+          I'm a counselling psychologist, and I work online with women who feel overwhelmed by anxiety or anger
+          that's hard to control. My approach is warm, practical and free of judgement. Together, we'll make sense of
+          your thoughts and reactions, and build calm, steady responses you can rely on.
+        </p>
+        <ul class="chip-list" aria-label="Qualifications and languages">
+          {p.qualifications.map((q) => <li class="chip">{q}</li>)}
+          <li class="chip">Sessions in {p.languages.join(' and ')}</li>
+        </ul>
+        <a href="/about" class="btn btn--ghost">More about Sarah</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Closing -->
+  <section class="section">
+    <div class="container narrow center closing">
+      <h2>Take the first pause.</h2>
+      <p class="lead">
+        A free first session is a gentle way to see if we're a good fit. There's no pressure and no commitment.
+      </p>
+      <div class="btn-row">
+        <BookButton />
+        <a href="/contact" class="btn btn--ghost">Ask a question first</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    padding-block: clamp(2.5rem, 7vw, 5.5rem) var(--section);
+  }
+  .hero-grid {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  @media (min-width: 52rem) {
+    .hero-grid {
+      grid-template-columns: 1.25fr 0.85fr;
+      gap: 4rem;
+    }
+  }
+  .hero-text .lead {
+    margin-bottom: 1.8rem;
+  }
+  .free-note {
+    margin: 1.1rem 0 0.3rem;
+    font-weight: 700;
+    color: var(--sage-deep);
+  }
+  .creds {
+    margin: 0;
+  }
+  .hero-art {
+    max-width: 22rem;
+    width: 62%;
+    justify-self: center;
+  }
+  @media (min-width: 52rem) {
+    .hero-art {
+      width: 100%;
+      max-width: 26rem;
+      justify-self: end;
+    }
+  }
+
+  .familiar {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 2.5rem;
+    display: grid;
+    gap: 1rem;
+  }
+  @media (min-width: 40rem) {
+    .familiar { grid-template-columns: 1fr 1fr; }
+  }
+  @media (min-width: 64rem) {
+    .familiar { grid-template-columns: repeat(4, 1fr); }
+  }
+  .familiar .card {
+    position: relative;
+    padding-top: 2.4rem;
+  }
+  .familiar .card::before {
+    content: '';
+    position: absolute;
+    top: 1.3rem;
+    left: clamp(1.4rem, 4vw, 2.2rem);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    opacity: 0.85;
+  }
+  .reassure {
+    max-width: 40rem;
+    margin-inline: auto;
+    margin-bottom: 0;
+    color: var(--sage-deep);
+    font-family: var(--font-serif);
+    font-variation-settings: 'SOFT' 100;
+    font-size: clamp(1.25rem, 3vw, 1.55rem);
+    line-height: 1.45;
+  }
+
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin: 2.5rem 0 3rem;
+    display: grid;
+    gap: 1.2rem;
+  }
+  @media (min-width: 48rem) {
+    .steps { grid-template-columns: repeat(3, 1fr); gap: 1.6rem; }
+  }
+  .steps li {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    box-shadow: var(--shadow);
+  }
+  .steps p { margin: 0; }
+  .step-num {
+    display: grid;
+    place-items: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 50%;
+    background: var(--sage-light);
+    color: var(--sage-deep);
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .meet {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  @media (min-width: 48rem) {
+    .meet { grid-template-columns: 0.8fr 1.2fr; gap: 4rem; }
+  }
+  .meet-photo {
+    width: 100%;
+    max-width: 24rem;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 999px 999px var(--radius) var(--radius);
+    justify-self: center;
+    background: var(--sage-light);
+  }
+
+  .closing .btn-row {
+    justify-content: center;
+  }
+</style>

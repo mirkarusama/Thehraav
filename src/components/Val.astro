@@ -1,0 +1,7 @@
+---
+// Shows a config value, highlighted while it's still a [PLACEHOLDER].
+import { isFilled } from '../config/site';
+interface Props { v: string }
+const { v } = Astro.props;
+---
+{isFilled(v) ? <Fragment>{v}</Fragment> : <span class="ph">{v}</span>}

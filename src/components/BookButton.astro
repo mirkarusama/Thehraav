@@ -1,0 +1,5 @@
+---
+interface Props { label?: string; variant?: 'primary' | 'ghost'; small?: boolean; href?: string }
+const { label = 'Book a session', variant = 'primary', small = false, href = '/book' } = Astro.props;
+---
+<a href={href} class:list={['btn', { 'btn--ghost': variant === 'ghost', 'btn--small': small }]}>{label}</a>
